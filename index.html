@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grand Diwali Selfie Booth</title>
+<title>Grand Diwali Selfie Booth | Selvi Silks</title>
 
 <style>
 * { box-sizing: border-box; }
@@ -94,7 +94,7 @@ h1 {
   padding: 16px;
   border: 2px solid #ffd66b;
   border-radius: 24px;
-  background: rgba(19, 0, 43, .84);
+  background: rgba(19, 0, 43, .88);
   box-shadow: 0 0 24px #a72dff, inset 0 0 20px #5c1677;
 }
 
@@ -134,7 +134,6 @@ video {
     90deg, #fff0a0, #ffb42e, #ffda67
   );
   box-shadow: 0 0 18px #ffb42e;
-  transition: transform .2s;
 }
 
 .btn:active { transform: scale(.97); }
@@ -180,14 +179,14 @@ footer {
 </head>
 
 <body>
+
 <canvas id="fireworks"></canvas>
 
 <main class="page">
 
   <div class="logo-wrap">
-    <img id="logo" class="logo"
-         src="logo.png" alt="Selvi Silks Logo"
-         onerror="this.style.display='none'">
+    <img id="pageLogo" class="logo"
+         src="logo.png" alt="Selvi Silks Logo">
   </div>
 
   <div class="lamps">🪔 ✨ 🪔</div>
@@ -212,62 +211,87 @@ footer {
     </div>
 
     <button class="btn" id="start">📸 OPEN SELFIE CAMERA</button>
-    <button class="btn secondary" id="snap" disabled>✨ CAPTURE MY SELFIE ✨</button>
-    <button class="btn" id="download" disabled>⬇ DOWNLOAD MY DIWALI PHOTO</button>
-    <button class="btn secondary" id="again" disabled>🔄 TAKE ANOTHER SELFIE</button>
+    <button class="btn secondary" id="snap" disabled>
+      ✨ CAPTURE MY SELFIE ✨
+    </button>
+    <button class="btn" id="download" disabled>
+      ⬇ DOWNLOAD MY DIWALI PHOTO
+    </button>
+    <button class="btn secondary" id="again" disabled>
+      🔄 TAKE ANOTHER SELFIE
+    </button>
 
-    <p id="status">Tap Open Selfie Camera and allow camera access.</p>
+    <p id="status">
+      Open the selfie camera and allow camera access.
+    </p>
   </section>
 
   <footer>🪔 Wishing You Light, Love &amp; Prosperity</footer>
 </main>
 
 <script>
-// Fireworks
+// --------------------------------------------------
+// COLORFUL SIDE SPARKLES AND FIREWORKS
+// --------------------------------------------------
 const fw = document.getElementById("fireworks");
 const fctx = fw.getContext("2d");
+
 let particles = [];
 let lastLaunch = 0;
 
-function resize() {
+function resizeFireworks() {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  fw.width = innerWidth * dpr;
-  fw.height = innerHeight * dpr;
+
+  fw.width = window.innerWidth * dpr;
+  fw.height = window.innerHeight * dpr;
+
   fctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
-resize();
-window.addEventListener("resize", resize);
+
+resizeFireworks();
+window.addEventListener("resize", resizeFireworks);
 
 function burst(x, y) {
   const colors = [
     "#ffdf59", "#ff3e9d", "#64f6ff",
     "#b96bff", "#ff8738", "#ffffff", "#7cff9e"
   ];
-  const color = colors[Math.floor(Math.random() * colors.length)];
 
-  for (let i = 0; i < 65; i++) {
+  const color = colors[
+    Math.floor(Math.random() * colors.length)
+  ];
+
+  for (let i = 0; i < 45; i++) {
     const angle = Math.random() * Math.PI * 2;
-    const speed = 1 + Math.random() * 4.5;
+    const speed = 0.6 + Math.random() * 3.2;
+
     particles.push({
       x, y,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
-      life: 45 + Math.random() * 35,
-      maxLife: 80,
+      life: 35 + Math.random() * 35,
+      maxLife: 70,
       color,
-      size: 1 + Math.random() * 2.5
+      size: 1 + Math.random() * 2.2
     });
   }
 }
 
-function animate(time) {
-  fctx.clearRect(0, 0, innerWidth, innerHeight);
+function animateFireworks(time) {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
 
+  fctx.clearRect(0, 0, width, height);
+
+  // Launch bursts alternately near the left and right edges.
   if (time - lastLaunch > 650) {
+    const side = Math.random() < 0.5 ? 0.10 : 0.90;
+
     burst(
-      25 + Math.random() * (innerWidth - 50),
-      40 + Math.random() * innerHeight * .58
+      width * side,
+      65 + Math.random() * height * 0.65
     );
+
     lastLaunch = time;
   }
 
@@ -276,14 +300,15 @@ function animate(time) {
   for (const p of particles) {
     p.x += p.vx;
     p.y += p.vy;
-    p.vy += .035;
-    p.vx *= .99;
+    p.vy += 0.018;
+    p.vx *= 0.99;
     p.life--;
 
     fctx.globalAlpha = Math.max(0, p.life / p.maxLife);
     fctx.fillStyle = p.color;
     fctx.shadowBlur = 12;
     fctx.shadowColor = p.color;
+
     fctx.beginPath();
     fctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
     fctx.fill();
@@ -291,22 +316,39 @@ function animate(time) {
 
   fctx.globalAlpha = 1;
   fctx.shadowBlur = 0;
-  requestAnimationFrame(animate);
+
+  requestAnimationFrame(animateFireworks);
 }
 
-for (let i = 0; i < 5; i++) {
+// Initial bursts on both sides
+for (let i = 0; i < 6; i++) {
   burst(
-    innerWidth * (.15 + Math.random() * .7),
-    innerHeight * (.08 + Math.random() * .48)
+    window.innerWidth * (Math.random() < 0.5 ? 0.10 : 0.90),
+    70 + Math.random() * window.innerHeight * 0.55
   );
 }
-requestAnimationFrame(animate);
 
-// Camera and selfie
+requestAnimationFrame(animateFireworks);
+
+// --------------------------------------------------
+// LOAD LOGO BEFORE SELFIE CAPTURE
+// --------------------------------------------------
+const selfieLogo = new Image();
+selfieLogo.onload = () => {
+  console.log("Selfie logo loaded successfully.");
+};
+selfieLogo.onerror = () => {
+  console.error("Could not load logo.png. Check the repository.");
+};
+selfieLogo.src = new URL("logo.png", document.baseURI).href;
+
+// --------------------------------------------------
+// SELFIE CAMERA
+// --------------------------------------------------
 const video = document.getElementById("video");
 const result = document.getElementById("result");
 const ctx = result.getContext("2d");
-const logo = document.getElementById("logo");
+
 const start = document.getElementById("start");
 const snap = document.getElementById("snap");
 const download = document.getElementById("download");
@@ -315,13 +357,18 @@ const status = document.getElementById("status");
 
 let stream = null;
 
-start.onclick = async () => {
+start.addEventListener("click", async () => {
   try {
-    if (!navigator.mediaDevices?.getUserMedia) {
-      throw new Error("HTTPS is required for camera access.");
+    if (!navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia) {
+      throw new Error("Please open the HTTPS website.");
     }
 
-    if (stream) stream.getTracks().forEach(t => t.stop());
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+    }
+
+    status.textContent = "Opening camera...";
 
     stream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: "user" },
@@ -333,120 +380,176 @@ start.onclick = async () => {
 
     video.style.display = "block";
     result.style.display = "none";
+
     snap.disabled = false;
     download.disabled = true;
     again.disabled = true;
+
     status.textContent = "Camera ready! Smile! 😊";
-  } catch (e) {
+
+  } catch (error) {
+    console.error(error);
     status.textContent =
-      "Camera access failed. Use HTTPS and allow camera permission.";
+      "Camera access failed. Allow camera permission and use HTTPS.";
   }
-};
+});
 
-snap.onclick = () => {
-  if (!video.videoWidth) return;
+// --------------------------------------------------
+// CAPTURE SELFIE + LOGO IN TOP-RIGHT CORNER
+// --------------------------------------------------
+snap.addEventListener("click", async () => {
+  if (!video.videoWidth || !video.videoHeight) {
+    status.textContent = "Camera is not ready. Please try again.";
+    return;
+  }
 
-  const w = video.videoWidth;
-  const h = video.videoHeight;
-  const footer = Math.round(w * .26);
+  snap.disabled = true;
+  status.textContent = "Preparing your Diwali selfie...";
 
-  result.width = w;
-  result.height = h + footer;
+  try {
+    // Wait for logo to load before capturing.
+    if (!selfieLogo.complete || !selfieLogo.naturalWidth) {
+      await new Promise((resolve, reject) => {
+        selfieLogo.onload = resolve;
+        selfieLogo.onerror = () => reject(
+          new Error("Logo image failed to load.")
+        );
+      });
+    }
 
-  // Draw selfie
-  ctx.drawImage(video, 0, 0, w, h);
+    const w = video.videoWidth;
+    const h = video.videoHeight;
+    const footer = Math.round(w * 0.24);
 
-  // LOGO AT TOP-RIGHT CORNER OF SELFIE
-  
-const logoWidth = Math.round(w * 0.20);
+    result.width = w;
+    result.height = h + footer;
 
-if (selfieLogo.complete && selfieLogo.naturalWidth > 0) {
-  const logoHeight = Math.round(
-    logoWidth * selfieLogo.naturalHeight / selfieLogo.naturalWidth
-  );
+    // Draw original selfie
+    ctx.drawImage(video, 0, 0, w, h);
 
-  const padding = Math.round(w * 0.035);
-  const x = w - logoWidth - padding;
-  const y = padding;
+    // Logo position: top-right corner of the photo
+    const logoWidth = Math.round(w * 0.20);
+    const logoHeight = Math.round(
+      logoWidth * selfieLogo.naturalHeight /
+      selfieLogo.naturalWidth
+    );
 
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(x - 5, y - 5, logoWidth + 10, logoHeight + 10);
+    const padding = Math.round(w * 0.035);
+    const logoX = w - logoWidth - padding;
+    const logoY = padding;
 
-  ctx.drawImage(selfieLogo, x, y, logoWidth, logoHeight);
-} else {
-  status.textContent = "Logo loading failed. Check logo.png in GitHub.";
-}
-
-
-    // White background for clear logo visibility
-    ctx.fillStyle = "rgba(255,255,255,0.92)";
+    // White backing keeps the logo visible.
+    ctx.fillStyle = "#ffffff";
     ctx.fillRect(
-      x - 5,
-      y - 5,
+      logoX - 5,
+      logoY - 5,
       logoWidth + 10,
       logoHeight + 10
     );
 
-    ctx.drawImage(logo, x, y, logoWidth, logoHeight);
+    ctx.drawImage(
+      selfieLogo,
+      logoX,
+      logoY,
+      logoWidth,
+      logoHeight
+    );
+
+    // Festive bottom frame
+    const gradient = ctx.createLinearGradient(
+      0, h, w, h + footer
+    );
+
+    gradient.addColorStop(0, "#5700b4");
+    gradient.addColorStop(0.5, "#d80086");
+    gradient.addColorStop(1, "#ff7a00");
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, h, w, footer);
+
+    // Border
+    ctx.strokeStyle = "#ffdf70";
+    ctx.lineWidth = Math.max(4, w * 0.012);
+    ctx.strokeRect(
+      5, 5, w - 10, h + footer - 10
+    );
+
+    // Diwali greeting
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#ffe776";
+    ctx.font = `bold ${Math.round(w * 0.065)}px Arial`;
+    ctx.fillText(
+      "HAPPY DIWALI!",
+      w / 2,
+      h + footer * 0.42
+    );
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = `bold ${Math.round(w * 0.025)}px Arial`;
+    ctx.fillText(
+      "WISHING YOU JOY & PROSPERITY",
+      w / 2,
+      h + footer * 0.69
+    );
+
+    ctx.font = `${Math.round(w * 0.04)}px Arial`;
+    ctx.fillText(
+      "✨ 🪔 ✨",
+      w / 2,
+      h + footer * 0.90
+    );
+
+    video.style.display = "none";
+    result.style.display = "block";
+
+    download.disabled = false;
+    again.disabled = false;
+
+    status.textContent =
+      "Your Diwali selfie with logo is ready! 🎉";
+
+  } catch (error) {
+    console.error(error);
+    status.textContent =
+      "Logo could not load. Check that logo.png exists beside index.html.";
+    snap.disabled = false;
   }
+});
 
-  // Diwali frame at the bottom
-  const g = ctx.createLinearGradient(0, h, w, h + footer);
-  g.addColorStop(0, "#5700b4");
-  g.addColorStop(.5, "#d80086");
-  g.addColorStop(1, "#ff7a00");
+// --------------------------------------------------
+// DOWNLOAD SELFIE
+// --------------------------------------------------
+download.addEventListener("click", () => {
+  const link = document.createElement("a");
 
-  ctx.fillStyle = g;
-  ctx.fillRect(0, h, w, footer);
+  link.download = "Selvi-Silks-Diwali-Selfie.png";
+  link.href = result.toDataURL("image/png");
+  link.click();
+});
 
-  ctx.strokeStyle = "#ffdf70";
-  ctx.lineWidth = Math.max(5, w * .012);
-  ctx.strokeRect(5, 5, w - 10, h + footer - 10);
-
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#ffe776";
-  ctx.font = `bold ${Math.round(w * .07)}px Arial`;
-  ctx.fillText("HAPPY DIWALI!", w / 2, h + footer * .43);
-
-  ctx.fillStyle = "#ffffff";
-  ctx.font = `bold ${Math.round(w * .027)}px Arial`;
-  ctx.fillText(
-    "WISHING YOU JOY & PROSPERITY",
-    w / 2,
-    h + footer * .70
-  );
-
-  ctx.font = `${Math.round(w * .045)}px Arial`;
-  ctx.fillText("🪔 ✨ 🎆 ✨ 🪔", w / 2, h + footer * .90);
-
-  video.style.display = "none";
-  result.style.display = "block";
-  snap.disabled = true;
-  download.disabled = false;
-  again.disabled = false;
-  status.textContent = "Your festive selfie is ready! 🎉";
-};
-
-download.onclick = () => {
-  const a = document.createElement("a");
-  a.download = "Happy-Diwali-Selfie.png";
-  a.href = result.toDataURL("image/png");
-  a.click();
-};
-
-again.onclick = () => {
+// --------------------------------------------------
+// TAKE ANOTHER SELFIE
+// --------------------------------------------------
+again.addEventListener("click", () => {
   result.style.display = "none";
   video.style.display = "block";
+
   snap.disabled = false;
   download.disabled = true;
   again.disabled = true;
-  status.textContent = "Ready for another selfie!";
-};
+
+  status.textContent = "Ready for another selfie! 😊";
+});
 
 window.addEventListener("pagehide", () => {
-  if (stream) stream.getTracks().forEach(t => t.stop());
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+  }
 });
 </script>
+
 </body>
 </html>
+
+
 
