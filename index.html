@@ -357,15 +357,26 @@ snap.onclick = () => {
   ctx.drawImage(video, 0, 0, w, h);
 
   // LOGO AT TOP-RIGHT CORNER OF SELFIE
-  if (logo.complete && logo.naturalWidth > 0) {
-    const logoWidth = Math.round(w * 0.19);
-    const logoHeight = Math.round(
-      logoWidth * logo.naturalHeight / logo.naturalWidth
-    );
+  
+const logoWidth = Math.round(w * 0.20);
 
-    const padding = Math.round(w * 0.035);
-    const x = w - logoWidth - padding;
-    const y = padding;
+if (selfieLogo.complete && selfieLogo.naturalWidth > 0) {
+  const logoHeight = Math.round(
+    logoWidth * selfieLogo.naturalHeight / selfieLogo.naturalWidth
+  );
+
+  const padding = Math.round(w * 0.035);
+  const x = w - logoWidth - padding;
+  const y = padding;
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(x - 5, y - 5, logoWidth + 10, logoHeight + 10);
+
+  ctx.drawImage(selfieLogo, x, y, logoWidth, logoHeight);
+} else {
+  status.textContent = "Logo loading failed. Check logo.png in GitHub.";
+}
+
 
     // White background for clear logo visibility
     ctx.fillStyle = "rgba(255,255,255,0.92)";
