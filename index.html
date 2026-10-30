@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Selvi Silks - Diwali Selfie Booth</title>
 
 <style>
@@ -18,28 +17,194 @@ body {
     background: #fff0d4;
     font-family: Arial, sans-serif;
     text-align: center;
+    overflow-x: hidden;
 }
 
 h1 {
     color: #7900c9;
     font-size: 34px;
     margin: 10px 0;
+    position: relative;
+    z-index: 2;
 }
 
 .subtitle {
     color: #744322;
     margin-bottom: 22px;
     font-size: 18px;
+    position: relative;
+    z-index: 2;
 }
+
+/* ==================================
+   SIDE FIREWORKS
+================================== */
+
+.fireworks {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 110px;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.fireworks.left {
+    left: 0;
+}
+
+.fireworks.right {
+    right: 0;
+}
+
+.spark {
+    position: absolute;
+    font-size: 23px;
+    animation: sparkle 2s infinite ease-in-out;
+    filter: drop-shadow(0 0 10px gold);
+}
+
+.spark:nth-child(1) {
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.spark:nth-child(2) {
+    top: 25%;
+    left: 60%;
+    animation-delay: .5s;
+}
+
+.spark:nth-child(3) {
+    top: 42%;
+    left: 15%;
+    animation-delay: 1s;
+}
+
+.spark:nth-child(4) {
+    top: 60%;
+    left: 65%;
+    animation-delay: .3s;
+}
+
+.spark:nth-child(5) {
+    top: 80%;
+    left: 25%;
+    animation-delay: .8s;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(.4) rotate(0deg);
+        opacity: .2;
+    }
+
+    50% {
+        transform: scale(1.5) rotate(90deg);
+        opacity: 1;
+    }
+}
+
+/* Firework bursts */
+
+.firework-burst {
+    position: absolute;
+    font-size: 35px;
+    animation: burst 2.5s infinite;
+    filter: drop-shadow(0 0 12px orange);
+}
+
+@keyframes burst {
+    0% {
+        transform: scale(.2) rotate(0deg);
+        opacity: 0;
+    }
+
+    40% {
+        transform: scale(1.3) rotate(45deg);
+        opacity: 1;
+    }
+
+    70% {
+        transform: scale(1.7) rotate(90deg);
+        opacity: .8;
+    }
+
+    100% {
+        transform: scale(.3) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+/* CSS Firework particles */
+
+.firework {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffb800;
+    box-shadow:
+        0 -25px #ffcf33,
+        18px -18px #ff6b00,
+        25px 0 #ffe45e,
+        18px 18px #ff8c00,
+        0 25px #fff176,
+        -18px 18px #ff9f1c,
+        -25px 0 #ffe45e,
+        -18px -18px #ff6b00;
+    animation: explode 2.5s infinite;
+}
+
+.firework.one {
+    top: 30%;
+    left: 35%;
+}
+
+.firework.two {
+    top: 70%;
+    left: 45%;
+    animation-delay: 1.2s;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(.1);
+        opacity: 0;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(.2);
+        opacity: 0;
+    }
+}
+
+/* ==================================
+   MAIN BOOTH
+================================== */
 
 .booth {
     width: min(100%, 540px);
     margin: auto;
     padding: 12px;
-    background: linear-gradient(145deg, #680021, #b00d45, #62001e);
+    background: linear-gradient(
+        145deg,
+        #680021,
+        #b00d45,
+        #62001e
+    );
     border: 6px solid #edc05b;
     border-radius: 60px 60px 20px 20px;
     box-shadow: 0 10px 25px #6d301b40;
+    position: relative;
+    z-index: 2;
 }
 
 .brand {
@@ -99,7 +264,7 @@ button {
 }
 
 button:disabled {
-    opacity: 0.4;
+    opacity: .4;
     cursor: not-allowed;
 }
 
@@ -114,6 +279,8 @@ button:disabled {
     margin: 15px auto;
     max-width: 500px;
     line-height: 1.5;
+    position: relative;
+    z-index: 2;
 }
 
 .note {
@@ -122,18 +289,108 @@ button:disabled {
     color: #68452c;
     font-size: 12px;
     line-height: 1.6;
+    position: relative;
+    z-index: 2;
 }
 
-.logo-preview {
-    max-width: 190px;
-    max-height: 65px;
-    object-fit: contain;
-    margin: 0 auto 5px;
+/* ==================================
+   MOBILE RESPONSIVE
+================================== */
+
+@media(max-width: 600px) {
+
+    .fireworks {
+        width: 42px;
+    }
+
+    .spark {
+        font-size: 16px;
+    }
+
+    .firework-burst {
+        font-size: 22px;
+    }
+
+    .brand {
+        font-size: 22px;
+    }
+
+    .wishes {
+        font-size: 29px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    .spark,
+    .firework-burst,
+    .firework {
+        animation: none;
+    }
 }
 </style>
 </head>
 
 <body>
+
+<!-- ==================================
+     LEFT SIDE FIREWORKS
+================================== -->
+
+<div class="fireworks left">
+
+    <span class="spark">✨</span>
+    <span class="spark">⭐</span>
+    <span class="spark">🌟</span>
+    <span class="spark">✨</span>
+    <span class="spark">💥</span>
+
+    <span class="firework-burst"
+          style="top:35%;left:15%">🎆</span>
+
+    <span class="firework-burst"
+          style="top:72%;left:20%;animation-delay:1s">
+          🎇
+    </span>
+
+    <span class="firework one"></span>
+    <span class="firework two"></span>
+
+</div>
+
+
+<!-- ==================================
+     RIGHT SIDE FIREWORKS
+================================== -->
+
+<div class="fireworks right">
+
+    <span class="spark">🌟</span>
+    <span class="spark">✨</span>
+    <span class="spark">⭐</span>
+    <span class="spark">💥</span>
+    <span class="spark">✨</span>
+
+    <span class="firework-burst"
+          style="top:20%;left:15%">🎇</span>
+
+    <span class="firework-burst"
+          style="top:55%;left:20%;animation-delay:1.2s">
+          🎆
+    </span>
+
+    <span class="firework one"></span>
+    <span class="firework two"></span>
+
+</div>
+
+
+<!-- ==================================
+     WEBSITE HEADER
+================================== -->
 
 <h1>🪔 Selvi Silks 🪔</h1>
 
@@ -141,13 +398,21 @@ button:disabled {
     Capture Your Diwali Memories!
 </div>
 
+
+<!-- ==================================
+     SELFIE BOOTH
+================================== -->
+
 <div class="booth">
 
     <div class="brand">
         DIWALI SELFIE BOOTH
     </div>
 
-    <video id="camera" autoplay playsinline muted></video>
+    <video id="camera"
+           autoplay
+           playsinline
+           muted></video>
 
     <canvas id="result"></canvas>
 
@@ -183,6 +448,7 @@ button:disabled {
 
 </div>
 
+
 <div class="note">
     Take your selfie with the original Selvi Silks logo.
     Download and share your Diwali memories!
@@ -196,7 +462,7 @@ button:disabled {
 <script>
 
 // ======================================
-// ELEMENTS
+// GET ELEMENTS
 // ======================================
 
 const video = document.getElementById("camera");
@@ -226,19 +492,27 @@ const logo = new Image();
 const logoPromise = new Promise((resolve, reject) => {
 
     logo.onload = () => {
+
         logoReady = true;
+
         console.log("Selvi Silks Logo Loaded Successfully");
+
         resolve(true);
+
     };
 
     logo.onerror = () => {
+
         logoReady = false;
-        reject(new Error(
-            "Logo not found. Check selvi-logo.png in GitHub."
-        ));
+
+        reject(
+            new Error(
+                "Logo not found. Check selvi-logo.png in GitHub."
+            )
+        );
+
     };
 
-    // Exact logo filename
     logo.src = "./selvi-logo.png";
 
 });
@@ -266,29 +540,37 @@ async function startCamera() {
 
     try {
 
-        statusText.textContent = "Checking Selvi Silks Logo...";
+        statusText.textContent =
+            "Checking Selvi Silks Logo...";
 
-        // Logo must load before camera starts
         await logoPromise;
 
         if (!navigator.mediaDevices?.getUserMedia) {
+
             throw new Error(
                 "Camera requires HTTPS or localhost."
             );
+
         }
 
         if (stream) {
+
             stream.getTracks().forEach(
                 track => track.stop()
             );
+
         }
 
         stream = await navigator.mediaDevices.getUserMedia({
 
             video: {
+
                 facingMode: "user",
+
                 width: { ideal: 1080 },
+
                 height: { ideal: 1350 }
+
             },
 
             audio: false
@@ -305,6 +587,7 @@ async function startCamera() {
         captureBtn.disabled = false;
 
         photoReady = false;
+
         setButtons(false);
 
         statusText.textContent =
@@ -331,20 +614,26 @@ async function startCamera() {
 async function capturePhoto() {
 
     if (!video.videoWidth) {
+
         statusText.textContent = "Camera is not ready.";
+
         return;
+
     }
 
     if (!logoReady) {
-        statusText.textContent = "Selvi Silks Logo is not ready.";
+
+        statusText.textContent =
+            "Selvi Silks Logo is not ready.";
+
         return;
+
     }
 
     captureBtn.disabled = true;
 
     try {
 
-        // Ensure logo is completely decoded
         await logo.decode();
 
         const W = 1080;
@@ -353,9 +642,7 @@ async function capturePhoto() {
         canvas.width = W;
         canvas.height = H;
 
-        // =================================
-        // CAMERA IMAGE
-        // =================================
+        // CAMERA CROP
 
         const sourceRatio =
             video.videoWidth / video.videoHeight;
@@ -370,16 +657,19 @@ async function capturePhoto() {
         if (sourceRatio > targetRatio) {
 
             sw = video.videoHeight * targetRatio;
+
             sx = (video.videoWidth - sw) / 2;
 
         } else {
 
             sh = video.videoWidth / targetRatio;
+
             sy = (video.videoHeight - sh) / 2;
 
         }
 
-        // Mirrored selfie
+        // MIRRORED SELFIE
+
         ctx.save();
 
         ctx.translate(W, 0);
@@ -394,9 +684,7 @@ async function capturePhoto() {
         ctx.restore();
 
 
-        // =================================
         // ORIGINAL SELVI SILKS LOGO
-        // =================================
 
         const logoWidth = 760;
 
@@ -404,7 +692,6 @@ async function capturePhoto() {
             logoWidth *
             (logo.naturalHeight / logo.naturalWidth);
 
-        // Draw logo centered at top
         ctx.drawImage(
             logo,
             (W - logoWidth) / 2,
@@ -414,9 +701,7 @@ async function capturePhoto() {
         );
 
 
-        // =================================
         // GOLD BORDER
-        // =================================
 
         ctx.lineWidth = 18;
         ctx.strokeStyle = "#efc45e";
@@ -437,9 +722,7 @@ async function capturePhoto() {
         );
 
 
-        // =================================
         // DIWALI GREETING PANEL
-        // =================================
 
         const bottom = ctx.createLinearGradient(
             0, 1030, 0, H
@@ -461,8 +744,8 @@ async function capturePhoto() {
             300
         );
 
+        // GOLD PANEL BORDER
 
-        // Gold border
         ctx.strokeStyle = "#edc05b";
         ctx.lineWidth = 6;
 
@@ -472,8 +755,8 @@ async function capturePhoto() {
             258
         );
 
+        // GREETING TEXT
 
-        // Greeting text
         ctx.textAlign = "center";
         ctx.fillStyle = "#ffe6a0";
 
@@ -502,11 +785,10 @@ async function capturePhoto() {
         );
 
 
-        // =================================
         // SHOW FINAL PHOTO
-        // =================================
 
         video.style.display = "none";
+
         canvas.style.display = "block";
 
         photoReady = true;
@@ -545,8 +827,13 @@ function makeFile() {
         canvas.toBlob(blob => {
 
             if (!blob) {
-                reject(new Error("Photo creation failed."));
+
+                reject(
+                    new Error("Photo creation failed.")
+                );
+
                 return;
+
             }
 
             const file = new File(
@@ -585,7 +872,9 @@ function downloadFile(file) {
     link.remove();
 
     setTimeout(() => {
+
         URL.revokeObjectURL(url);
+
     }, 60000);
 
 }
@@ -616,7 +905,7 @@ downloadBtn.addEventListener("click", async () => {
 
 
 // ======================================
-// WHATSAPP & INSTAGRAM SHARE
+// WHATSAPP AND INSTAGRAM SHARING
 // ======================================
 
 async function sharePhoto(app) {
@@ -627,7 +916,6 @@ async function sharePhoto(app) {
 
         const file = await makeFile();
 
-        // Share actual photo using mobile share sheet
         if (
             navigator.share &&
             navigator.canShare &&
@@ -651,7 +939,8 @@ async function sharePhoto(app) {
 
         }
 
-        // Fallback for browsers without image sharing
+        // FALLBACK
+
         downloadFile(file);
 
         if (app === "WhatsApp") {
@@ -701,6 +990,7 @@ retakeBtn.addEventListener("click", () => {
     if (!stream) return;
 
     video.style.display = "block";
+
     canvas.style.display = "none";
 
     photoReady = false;
@@ -739,7 +1029,7 @@ instagramBtn.addEventListener(
 
 
 // ======================================
-// INITIAL LOGO CHECK
+// LOGO INITIAL CHECK
 // ======================================
 
 logoPromise.then(() => {
@@ -758,7 +1048,7 @@ logoPromise.then(() => {
 
 
 // ======================================
-// STOP CAMERA WHEN LEAVING
+// STOP CAMERA
 // ======================================
 
 window.addEventListener("pagehide", () => {
@@ -777,6 +1067,8 @@ window.addEventListener("pagehide", () => {
 
 </body>
 </html>
+
+
 
 
 
