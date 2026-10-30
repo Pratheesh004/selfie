@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GS & Co - Diwali Selfie Booth</title>
+
+<title>Selvi Silks - Grand Diwali Selfie Booth</title>
 
 <style>
 * {
@@ -15,14 +16,14 @@ body {
     margin: 0;
     padding: 20px 12px;
     min-height: 100vh;
-    background: linear-gradient(135deg, #fff4df, #ffe1bd, #fff0d4);
+    background: linear-gradient(135deg, #f9edff, #ead9ff, #fff3e8);
     font-family: Arial, sans-serif;
     text-align: center;
     overflow-x: hidden;
 }
 
 h1 {
-    color: #e94e18;
+    color: #6500bd;
     font-size: 34px;
     margin: 10px 0;
     position: relative;
@@ -30,72 +31,46 @@ h1 {
 }
 
 .subtitle {
-    color: #a65b20;
+    color: #71318c;
     font-size: 18px;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
     position: relative;
     z-index: 2;
 }
 
-/* =================================
-   ORANGE GOLD FIREWORKS
-================================= */
+/* FIREWORKS */
 
 .fireworks {
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 100px;
+    width: 90px;
     overflow: hidden;
     pointer-events: none;
     z-index: 1;
 }
 
-.fireworks.left { left: 0; }
-.fireworks.right { right: 0; }
+.left { left: 0; }
+.right { right: 0; }
 
 .spark {
     position: absolute;
     font-size: 24px;
-    animation: sparkle 2s infinite ease-in-out;
-    filter: drop-shadow(0 0 10px #ff9d22);
+    animation: sparkle 2s infinite;
+    filter: drop-shadow(0 0 10px #c17aff);
 }
 
-.spark:nth-child(1) {
-    top: 12%;
-    left: 20%;
-}
-
-.spark:nth-child(2) {
-    top: 28%;
-    left: 60%;
-    animation-delay: .5s;
-}
-
-.spark:nth-child(3) {
-    top: 45%;
-    left: 15%;
-    animation-delay: 1s;
-}
-
-.spark:nth-child(4) {
-    top: 65%;
-    left: 60%;
-    animation-delay: .3s;
-}
-
-.spark:nth-child(5) {
-    top: 83%;
-    left: 25%;
-    animation-delay: .8s;
-}
+.spark:nth-child(1) { top: 12%; left: 20%; }
+.spark:nth-child(2) { top: 28%; left: 60%; animation-delay: .5s; }
+.spark:nth-child(3) { top: 45%; left: 15%; animation-delay: 1s; }
+.spark:nth-child(4) { top: 65%; left: 60%; animation-delay: .3s; }
+.spark:nth-child(5) { top: 83%; left: 25%; animation-delay: .8s; }
 
 @keyframes sparkle {
     0%, 100% {
         transform: scale(.4) rotate(0deg);
         opacity: .2;
     }
-
     50% {
         transform: scale(1.5) rotate(90deg);
         opacity: 1;
@@ -104,154 +79,108 @@ h1 {
 
 .burst {
     position: absolute;
-    font-size: 36px;
+    font-size: 32px;
     animation: burst 2.5s infinite;
-    filter: drop-shadow(0 0 12px orange);
 }
 
 @keyframes burst {
-    0% {
-        transform: scale(.2) rotate(0deg);
-        opacity: 0;
-    }
-
-    40% {
-        transform: scale(1.3) rotate(45deg);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(.3) rotate(180deg);
-        opacity: 0;
-    }
+    0% { transform: scale(.2); opacity: 0; }
+    40% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(.3) rotate(180deg); opacity: 0; }
 }
 
-/* CSS firework particles */
-
-.firework {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #ffb800;
-
-    box-shadow:
-        0 -25px #ffcf33,
-        18px -18px #ff6b00,
-        25px 0 #ffe45e,
-        18px 18px #ff8c00,
-        0 25px #fff176,
-        -18px 18px #ff9f1c,
-        -25px 0 #ffe45e,
-        -18px -18px #ff6b00;
-
-    animation: explode 2.5s infinite;
-}
-
-.firework.one {
-    top: 35%;
-    left: 35%;
-}
-
-.firework.two {
-    top: 72%;
-    left: 45%;
-    animation-delay: 1.2s;
-}
-
-@keyframes explode {
-    0% {
-        transform: scale(.1);
-        opacity: 0;
-    }
-
-    40% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(.2);
-        opacity: 0;
-    }
-}
-
-/* =================================
-   MAIN BOOTH - GS ORANGE THEME
-================================= */
+/* MAIN BOOTH */
 
 .booth {
     width: min(100%, 540px);
     margin: auto;
-    padding: 13px;
+    padding: 12px;
 
     background: linear-gradient(
         145deg,
-        #ff6b28,
-        #ed4215,
-        #b92c0c
+        #8500d5,
+        #5700a0,
+        #30005c
     );
 
-    border: 7px solid #e8bb50;
-    border-radius: 55px 55px 20px 20px;
+    border: 7px solid #e7c46d;
+    border-radius: 40px;
 
-    box-shadow:
-        0 10px 30px #a93d1e40,
-        inset 0 0 20px #ffe5a033;
+    box-shadow: 0 12px 35px #55008035;
 
     position: relative;
     z-index: 2;
 }
 
 .brand {
-    padding: 17px 5px;
-    color: #fff0b3;
-    font-size: 25px;
+    padding: 12px 5px;
+    color: #fff0c2;
+    font-size: 22px;
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
 }
 
-#camera,
-#result {
-    display: block;
+/* FRAME PREVIEW */
+
+.camera-stage {
     width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    background: #fff6e7;
-    border: 6px solid #e9bf64;
-    border-radius: 30px 30px 10px 10px;
+    aspect-ratio: 1706 / 2048;
+    position: relative;
+    overflow: hidden;
+    background: #fff0e7;
 }
 
 #camera {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transform: scaleX(-1);
+    display: none;
+}
+
+#framePreview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    z-index: 2;
 }
 
 #result {
     display: none;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1706 / 2048;
+    object-fit: contain;
+    background: transparent;
 }
 
-/* GREETING */
+/* WISHES */
 
 .wishes {
-    margin: 15px 0 5px;
+    margin: 12px 0;
     padding: 17px 5px;
 
     background: linear-gradient(
         135deg,
-        #fff0c0,
-        #ffd17c
+        #fff,
+        #f1e2ff
     );
 
-    color: #a52b0b;
-    border: 4px solid #e6ae3c;
-    border-radius: 25px;
+    color: #6500b5;
+    border: 3px solid #e7c46d;
+    border-radius: 20px;
 
-    font: italic bold 35px Georgia, serif;
+    font: bold italic 30px Georgia, serif;
 }
 
 .wishes small {
     display: block;
-    font: bold 15px Arial, sans-serif;
+    font: bold 14px Arial;
     margin-bottom: 5px;
 }
 
@@ -259,18 +188,18 @@ h1 {
 
 button {
     width: 100%;
-    margin-top: 11px;
+    margin-top: 10px;
     padding: 15px 10px;
 
-    border: 2px solid #ffdf91;
+    border: 2px solid #f4d995;
     border-radius: 12px;
 
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
 
-    background: #f2b83f;
-    color: #76230c;
+    background: #f0d17e;
+    color: #4c087a;
 }
 
 button:disabled {
@@ -279,64 +208,41 @@ button:disabled {
 }
 
 .secondary {
-    background: #fff0d0;
-    color: #a52b0b;
-    border-color: #e8b65b;
+    background: #fff;
+    color: #6500b5;
+    border-color: #d9b9ef;
 }
 
 .status {
-    color: #963412;
+    color: #6500a9;
     font-size: 14px;
+    line-height: 1.5;
     margin: 15px auto;
     max-width: 500px;
-    line-height: 1.5;
     position: relative;
     z-index: 2;
 }
 
 .note {
-    color: #81502b;
+    color: #71318c;
     font-size: 12px;
-    line-height: 1.6;
-    max-width: 500px;
     margin: 15px auto;
+    line-height: 1.6;
     position: relative;
     z-index: 2;
 }
 
-/* =================================
-   RESPONSIVE DESIGN
-================================= */
-
 @media(max-width: 600px) {
-
-    .fireworks {
-        width: 42px;
-    }
-
-    .spark {
-        font-size: 16px;
-    }
-
-    .burst {
-        font-size: 22px;
-    }
-
-    .brand {
-        font-size: 21px;
-    }
-
-    .wishes {
-        font-size: 29px;
-    }
-
-    h1 {
-        font-size: 28px;
-    }
+    .fireworks { width: 38px; }
+    .spark { font-size: 15px; }
+    .burst { font-size: 20px; }
+    h1 { font-size: 27px; }
+    .brand { font-size: 18px; }
+    .wishes { font-size: 26px; }
 }
 
 @media(prefers-reduced-motion: reduce) {
-    .spark, .burst, .firework {
+    .spark, .burst {
         animation: none;
     }
 }
@@ -350,15 +256,11 @@ button:disabled {
 <div class="fireworks left">
     <span class="spark">✨</span>
     <span class="spark">⭐</span>
-    <span class="spark">🌟</span>
+    <span class="spark">💜</span>
     <span class="spark">✨</span>
-    <span class="spark">💥</span>
-
+    <span class="spark">🌟</span>
     <span class="burst" style="top:35%;left:15%">🎆</span>
     <span class="burst" style="top:75%;left:20%;animation-delay:1s">🎇</span>
-
-    <span class="firework one"></span>
-    <span class="firework two"></span>
 </div>
 
 <!-- RIGHT FIREWORKS -->
@@ -366,41 +268,53 @@ button:disabled {
 <div class="fireworks right">
     <span class="spark">🌟</span>
     <span class="spark">✨</span>
+    <span class="spark">💜</span>
     <span class="spark">⭐</span>
-    <span class="spark">💥</span>
     <span class="spark">✨</span>
-
     <span class="burst" style="top:20%;left:15%">🎇</span>
-    <span class="burst" style="top:60%;left:20%;animation-delay:1.2s">🎆</span>
-
-    <span class="firework one"></span>
-    <span class="firework two"></span>
+    <span class="burst" style="top:60%;left:20%;animation-delay:1s">🎆</span>
 </div>
 
 <!-- HEADER -->
 
-<h1>✨ GS & Co ✨</h1>
+<h1>🪔 Selvi Silks 🪔</h1>
 
 <div class="subtitle">
     Capture Your Diwali Memories!
 </div>
 
-<!-- SELFIE BOOTH -->
+<!-- BOOTH -->
 
 <div class="booth">
 
     <div class="brand">
-        DIWALI SELFIE BOOTH
+        GRAND DIWALI SELFIE BOOTH
     </div>
 
-    <video id="camera" autoplay playsinline muted></video>
+    <!-- CAMERA AND FRAME -->
+
+    <div class="camera-stage" id="cameraStage">
+
+        <video id="camera"
+               autoplay
+               playsinline
+               muted>
+        </video>
+
+        <img id="framePreview"
+             src="./selvi-frame.png"
+             alt="Selvi Silks Diwali Frame">
+
+    </div>
+
+    <!-- FINAL PHOTO -->
 
     <canvas id="result"></canvas>
 
     <div class="wishes">
         <small>Wishing You a</small>
         Happy Diwali!
-        <small>✨ Celebrate Happiness Together ✨</small>
+        <small>✨ Let Your Happiness Shine ✨</small>
     </div>
 
     <button id="start">
@@ -430,13 +344,13 @@ button:disabled {
 </div>
 
 <div class="note">
-    Celebrate Diwali with GS & Co.
-    Capture your special moments and share them!
+    Celebrate the Festival of Lights with Selvi Silks!
 </div>
 
 <div class="status" id="status">
-    Loading GS & Co Logo...
+    Loading Selvi Silks Diwali Frame...
 </div>
+
 
 <script>
 
@@ -447,6 +361,9 @@ button:disabled {
 const video = document.getElementById("camera");
 const canvas = document.getElementById("result");
 const ctx = canvas.getContext("2d");
+
+const framePreview = document.getElementById("framePreview");
+const cameraStage = document.getElementById("cameraStage");
 
 const statusText = document.getElementById("status");
 
@@ -459,32 +376,45 @@ const instagramBtn = document.getElementById("instagram");
 
 let stream = null;
 let photoReady = false;
-let logoReady = false;
 
 
 // =================================
-// LOAD ORIGINAL GS & CO LOGO
+// LOAD FRAME
 // =================================
 
-const logo = new Image();
+const frame = new Image();
 
-const logoPromise = new Promise((resolve, reject) => {
+const framePromise = new Promise((resolve, reject) => {
 
-    logo.onload = () => {
-        logoReady = true;
-        console.log("GS & Co Logo Loaded Successfully");
-        resolve(true);
+    frame.onload = () => {
+        console.log("Selvi Silks Frame Loaded");
+        resolve();
     };
 
-    logo.onerror = () => {
+    frame.onerror = () => {
         reject(new Error(
-            "Logo not found. Check gs-logo.png in GitHub."
+            "Frame not found! Check selvi-frame.png filename."
         ));
     };
 
-    logo.src = "./gs-logo.png";
+    frame.src = "./selvi-frame.png";
 
 });
+
+
+// =================================
+// FRAME COORDINATES
+// Based on 1706 x 2048 image
+// =================================
+
+const FRAME_W = 1706;
+const FRAME_H = 2048;
+
+// Transparent photo window coordinates
+const PHOTO_X = 285;
+const PHOTO_Y = 770;
+const PHOTO_W = 1136;
+const PHOTO_H = 975;
 
 
 // =================================
@@ -510,28 +440,32 @@ async function startCamera() {
     try {
 
         statusText.textContent =
-            "Checking GS & Co Logo...";
+            "Checking Selvi Silks Frame...";
 
-        await logoPromise;
+        await framePromise;
 
         if (!navigator.mediaDevices?.getUserMedia) {
+
             throw new Error(
                 "Camera requires HTTPS or localhost."
             );
+
         }
 
         if (stream) {
-            stream.getTracks().forEach(
-                track => track.stop()
-            );
+            stream.getTracks().forEach(track => track.stop());
+            stream = null;
         }
+
+        statusText.textContent =
+            "Requesting Camera Permission...";
 
         stream = await navigator.mediaDevices.getUserMedia({
 
             video: {
                 facingMode: "user",
-                width: { ideal: 1080 },
-                height: { ideal: 1350 }
+                width: { ideal: 1280 },
+                height: { ideal: 1600 }
             },
 
             audio: false
@@ -540,9 +474,21 @@ async function startCamera() {
 
         video.srcObject = stream;
 
+        await new Promise((resolve, reject) => {
+
+            video.onloadedmetadata = resolve;
+
+            video.onerror = () => reject(
+                new Error("Camera preview failed.")
+            );
+
+        });
+
         await video.play();
 
         video.style.display = "block";
+        framePreview.style.display = "block";
+        cameraStage.style.display = "block";
         canvas.style.display = "none";
 
         captureBtn.disabled = false;
@@ -551,15 +497,30 @@ async function startCamera() {
         setButtons(false);
 
         statusText.textContent =
-            "GS & Co Logo Ready! Camera Ready!";
+            "Camera Ready! Selvi Silks Frame Loaded.";
 
     }
 
     catch (error) {
 
-        statusText.textContent =
-            "Error: " + error.message;
+        console.error("Camera Error:", error);
 
+        let message = "Camera Error: ";
+
+        if (error.name === "NotAllowedError") {
+            message += "Please allow camera permission in Chrome.";
+        }
+        else if (error.name === "NotFoundError") {
+            message += "No camera detected.";
+        }
+        else if (error.name === "NotReadableError") {
+            message += "Camera is being used by another application.";
+        }
+        else {
+            message += error.message;
+        }
+
+        statusText.textContent = message;
         captureBtn.disabled = true;
 
     }
@@ -568,7 +529,7 @@ async function startCamera() {
 
 
 // =================================
-// CAPTURE SELFIE
+// DRAW SELFIE INSIDE FRAME
 // =================================
 
 async function capturePhoto() {
@@ -578,29 +539,21 @@ async function capturePhoto() {
         return;
     }
 
-    if (!logoReady) {
-        statusText.textContent = "GS & Co Logo not ready.";
-        return;
-    }
-
     captureBtn.disabled = true;
 
     try {
 
-        await logo.decode();
+        await framePromise;
 
-        const W = 1080;
-        const H = 1350;
+        // Keep exact frame aspect ratio
+        canvas.width = FRAME_W;
+        canvas.height = FRAME_H;
 
-        canvas.width = W;
-        canvas.height = H;
-
-        // CAMERA CROP
+        // Crop camera image to photo window ratio
+        const targetRatio = PHOTO_W / PHOTO_H;
 
         const sourceRatio =
             video.videoWidth / video.videoHeight;
-
-        const targetRatio = W / H;
 
         let sx = 0;
         let sy = 0;
@@ -619,156 +572,46 @@ async function capturePhoto() {
 
         }
 
-        // MIRRORED SELFIE
-
+        // Draw selfie in transparent window
         ctx.save();
 
-        ctx.translate(W, 0);
+        ctx.translate(
+            PHOTO_X + PHOTO_W,
+            PHOTO_Y
+        );
+
         ctx.scale(-1, 1);
 
         ctx.drawImage(
             video,
             sx, sy, sw, sh,
-            0, 0, W, H
+            0, 0, PHOTO_W, PHOTO_H
         );
 
         ctx.restore();
 
-
-        // =================================
-        // GS LOGO - TOP LEFT CORNER
-        // =================================
-
-        const logoWidth = 330;
-
-        const logoHeight =
-            logoWidth *
-            (logo.naturalHeight / logo.naturalWidth);
-
-        // Logo background shadow
-
-        ctx.save();
-
-        ctx.shadowColor = "rgba(0,0,0,0.25)";
-        ctx.shadowBlur = 15;
-
+        // Draw complete original frame over selfie
         ctx.drawImage(
-            logo,
-            45,
-            45,
-            logoWidth,
-            logoHeight
+            frame,
+            0, 0,
+            FRAME_W, FRAME_H
         );
 
-        ctx.restore();
-
-
-        // =================================
-        // GOLD FRAME
-        // =================================
-
-        ctx.lineWidth = 18;
-        ctx.strokeStyle = "#e9bd50";
-
-        ctx.strokeRect(
-            10, 10,
-            W - 20,
-            H - 20
-        );
-
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = "#fff0bd";
-
-        ctx.strokeRect(
-            32, 32,
-            W - 64,
-            H - 64
-        );
-
-
-        // =================================
-        // DIWALI GREETING PANEL
-        // =================================
-
-        const bottom = ctx.createLinearGradient(
-            0, 1030, 0, H
-        );
-
-        bottom.addColorStop(
-            0, "rgba(180,45,10,0.88)"
-        );
-
-        bottom.addColorStop(
-            1, "rgba(105,25,5,0.98)"
-        );
-
-        ctx.fillStyle = bottom;
-
-        ctx.fillRect(
-            20, 1030,
-            W - 40,
-            300
-        );
-
-        // GOLD BORDER
-
-        ctx.strokeStyle = "#ffd36b";
-        ctx.lineWidth = 6;
-
-        ctx.strokeRect(
-            42, 1050,
-            W - 84,
-            258
-        );
-
-
-        // GREETING TEXT
-
-        ctx.textAlign = "center";
-        ctx.fillStyle = "#fff0b3";
-
-        ctx.font = "bold 38px Georgia";
-
-        ctx.fillText(
-            "Wishing You a",
-            W / 2,
-            1110
-        );
-
-        ctx.font = "bold italic 78px Georgia";
-
-        ctx.fillText(
-            "Happy Diwali!",
-            W / 2,
-            1205
-        );
-
-        ctx.font = "28px Arial";
-
-        ctx.fillText(
-            "Celebrate Happiness Together!",
-            W / 2,
-            1260
-        );
-
-
-        // =================================
-        // SHOW FINAL PHOTO
-        // =================================
-
-        video.style.display = "none";
+        // Show captured photo
+        cameraStage.style.display = "none";
         canvas.style.display = "block";
 
         photoReady = true;
-
         setButtons(true);
 
         statusText.textContent =
-            "Success! GS & Co Logo Added to Your Selfie!";
+            "Your Selvi Silks Grand Diwali Selfie is Ready!";
 
     }
 
     catch (error) {
+
+        console.error(error);
 
         statusText.textContent =
             "Photo Error: " + error.message;
@@ -785,7 +628,7 @@ async function capturePhoto() {
 
 
 // =================================
-// CREATE IMAGE FILE
+// CREATE PHOTO FILE
 // =================================
 
 function makeFile() {
@@ -801,7 +644,7 @@ function makeFile() {
 
             const file = new File(
                 [blob],
-                "GS-Co-Diwali.png",
+                "Selvi-Silks-Grand-Diwali.png",
                 { type: "image/png" }
             );
 
@@ -825,12 +668,11 @@ function downloadFile(file) {
     const link = document.createElement("a");
 
     link.href = url;
-    link.download = "GS-Co-Diwali.png";
+    link.download = "Selvi-Silks-Grand-Diwali.png";
 
     document.body.appendChild(link);
 
     link.click();
-
     link.remove();
 
     setTimeout(() => {
@@ -850,21 +692,19 @@ downloadBtn.addEventListener("click", async () => {
         downloadFile(file);
 
         statusText.textContent =
-            "GS & Co Photo Downloaded Successfully!";
+            "Photo Downloaded Successfully!";
 
     }
 
     catch (error) {
-
         statusText.textContent = error.message;
-
     }
 
 });
 
 
 // =================================
-// WHATSAPP & INSTAGRAM SHARE
+// WHATSAPP AND INSTAGRAM
 // =================================
 
 async function sharePhoto(app) {
@@ -885,9 +725,9 @@ async function sharePhoto(app) {
 
                 files: [file],
 
-                title: "GS & Co - Happy Diwali",
+                title: "Selvi Silks - Happy Diwali",
 
-                text: "Happy Diwali from GS & Co! ✨🪔"
+                text: "Happy Diwali from Selvi Silks! 🪔✨"
 
             });
 
@@ -898,8 +738,7 @@ async function sharePhoto(app) {
 
         }
 
-        // FALLBACK FOR UNSUPPORTED BROWSERS
-
+        // Fallback for browsers without file sharing
         downloadFile(file);
 
         if (app === "WhatsApp") {
@@ -907,7 +746,7 @@ async function sharePhoto(app) {
             window.open(
                 "https://wa.me/?text=" +
                 encodeURIComponent(
-                    "Happy Diwali from GS & Co! ✨🪔"
+                    "Happy Diwali from Selvi Silks! 🪔✨"
                 ),
                 "_blank"
             );
@@ -931,7 +770,7 @@ async function sharePhoto(app) {
         if (error.name !== "AbortError") {
 
             statusText.textContent =
-                "Sharing unavailable. Download and share manually.";
+                "Please download and share your photo manually.";
 
         }
 
@@ -948,7 +787,10 @@ retakeBtn.addEventListener("click", () => {
 
     if (!stream) return;
 
+    cameraStage.style.display = "block";
     video.style.display = "block";
+    framePreview.style.display = "block";
+
     canvas.style.display = "none";
 
     photoReady = false;
@@ -981,32 +823,35 @@ instagramBtn.addEventListener(
 
 
 // =================================
-// LOGO CHECK
+// INITIAL FRAME CHECK
 // =================================
 
-logoPromise.then(() => {
+framePromise.then(() => {
 
     statusText.textContent =
-        "GS & Co Logo Loaded! Click Start Camera.";
+        "Selvi Silks Grand Diwali Frame Loaded!";
 
 }).catch(error => {
 
     statusText.textContent = error.message;
+
     captureBtn.disabled = true;
 
 });
 
 
 // =================================
-// STOP CAMERA
+// STOP CAMERA WHEN LEAVING
 // =================================
 
 window.addEventListener("pagehide", () => {
 
     if (stream) {
+
         stream.getTracks().forEach(
             track => track.stop()
         );
+
     }
 
 });
@@ -1015,3 +860,4 @@ window.addEventListener("pagehide", () => {
 
 </body>
 </html>
+
