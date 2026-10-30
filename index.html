@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Selvi Silks - Grand Diwali Selfie Booth</title>
+<title>Selvi Silks - Grand Diwali 2.0</title>
 
 <style>
 * {
@@ -14,9 +14,9 @@
 
 body {
     margin: 0;
-    padding: 20px 12px;
+    padding: 18px 12px;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f9edff, #ead9ff, #fff3e8);
+    background: linear-gradient(135deg,#f8eaff,#ead7ff,#fff0e6);
     font-family: Arial, sans-serif;
     text-align: center;
     overflow-x: hidden;
@@ -26,16 +26,12 @@ h1 {
     color: #6500bd;
     font-size: 34px;
     margin: 10px 0;
-    position: relative;
-    z-index: 2;
 }
 
 .subtitle {
     color: #71318c;
     font-size: 18px;
-    margin-bottom: 18px;
-    position: relative;
-    z-index: 2;
+    margin-bottom: 20px;
 }
 
 /* FIREWORKS */
@@ -44,7 +40,7 @@ h1 {
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 90px;
+    width: 65px;
     overflow: hidden;
     pointer-events: none;
     z-index: 1;
@@ -55,9 +51,8 @@ h1 {
 
 .spark {
     position: absolute;
-    font-size: 24px;
+    font-size: 23px;
     animation: sparkle 2s infinite;
-    filter: drop-shadow(0 0 10px #c17aff);
 }
 
 .spark:nth-child(1) { top: 12%; left: 20%; }
@@ -67,7 +62,7 @@ h1 {
 .spark:nth-child(5) { top: 83%; left: 25%; animation-delay: .8s; }
 
 @keyframes sparkle {
-    0%, 100% {
+    0%,100% {
         transform: scale(.4) rotate(0deg);
         opacity: .2;
     }
@@ -77,19 +72,7 @@ h1 {
     }
 }
 
-.burst {
-    position: absolute;
-    font-size: 32px;
-    animation: burst 2.5s infinite;
-}
-
-@keyframes burst {
-    0% { transform: scale(.2); opacity: 0; }
-    40% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(.3) rotate(180deg); opacity: 0; }
-}
-
-/* MAIN BOOTH */
+/* SELFIE BOOTH */
 
 .booth {
     width: min(100%, 540px);
@@ -113,50 +96,37 @@ h1 {
 }
 
 .brand {
-    padding: 12px 5px;
+    padding: 14px 5px;
     color: #fff0c2;
-    font-size: 22px;
+    font-size: 21px;
     font-weight: bold;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
 }
 
-/* FRAME PREVIEW */
+/* LIVE CANVAS */
 
 .camera-stage {
     width: 100%;
-    aspect-ratio: 1706 / 2048;
+    aspect-ratio: 1144 / 1375;
     position: relative;
     overflow: hidden;
-    background: #fff0e7;
+    background: #310052;
 }
 
-#camera {
-    position: absolute;
-    inset: 0;
+#previewCanvas {
+    display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transform: scaleX(-1);
-    display: none;
 }
 
-#framePreview {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    pointer-events: none;
-    z-index: 2;
-}
+/* FINAL PHOTO */
 
 #result {
     display: none;
     width: 100%;
     height: auto;
-    aspect-ratio: 1706 / 2048;
-    object-fit: contain;
-    background: transparent;
+    aspect-ratio: 1144 / 1375;
+    background: #310052;
 }
 
 /* WISHES */
@@ -219,8 +189,6 @@ button:disabled {
     line-height: 1.5;
     margin: 15px auto;
     max-width: 500px;
-    position: relative;
-    z-index: 2;
 }
 
 .note {
@@ -228,23 +196,18 @@ button:disabled {
     font-size: 12px;
     margin: 15px auto;
     line-height: 1.6;
-    position: relative;
-    z-index: 2;
 }
 
-@media(max-width: 600px) {
-    .fireworks { width: 38px; }
+@media(max-width:600px) {
+    .fireworks { width: 32px; }
     .spark { font-size: 15px; }
-    .burst { font-size: 20px; }
     h1 { font-size: 27px; }
-    .brand { font-size: 18px; }
+    .brand { font-size: 17px; }
     .wishes { font-size: 26px; }
 }
 
-@media(prefers-reduced-motion: reduce) {
-    .spark, .burst {
-        animation: none;
-    }
+@media(prefers-reduced-motion:reduce) {
+    .spark { animation: none; }
 }
 </style>
 </head>
@@ -259,8 +222,6 @@ button:disabled {
     <span class="spark">💜</span>
     <span class="spark">✨</span>
     <span class="spark">🌟</span>
-    <span class="burst" style="top:35%;left:15%">🎆</span>
-    <span class="burst" style="top:75%;left:20%;animation-delay:1s">🎇</span>
 </div>
 
 <!-- RIGHT FIREWORKS -->
@@ -271,8 +232,6 @@ button:disabled {
     <span class="spark">💜</span>
     <span class="spark">⭐</span>
     <span class="spark">✨</span>
-    <span class="burst" style="top:20%;left:15%">🎇</span>
-    <span class="burst" style="top:60%;left:20%;animation-delay:1s">🎆</span>
 </div>
 
 <!-- HEADER -->
@@ -291,31 +250,33 @@ button:disabled {
         GRAND DIWALI SELFIE BOOTH
     </div>
 
-    <!-- CAMERA AND FRAME -->
+    <!-- CAMERA COMPOSITE -->
 
     <div class="camera-stage" id="cameraStage">
-
-        <video id="camera"
-               autoplay
-               playsinline
-               muted>
-        </video>
-
-        <img id="framePreview"
-             src="./selvi-frame.png"
-             alt="Selvi Silks Diwali Frame">
-
+        <canvas
+            id="previewCanvas"
+            width="1144"
+            height="1375">
+        </canvas>
     </div>
 
-    <!-- FINAL PHOTO -->
+    <!-- CAPTURED PHOTO -->
 
-    <canvas id="result"></canvas>
+    <canvas
+        id="result"
+        width="1144"
+        height="1375">
+    </canvas>
+
+    <!-- WISHES -->
 
     <div class="wishes">
         <small>Wishing You a</small>
         Happy Diwali!
         <small>✨ Let Your Happiness Shine ✨</small>
     </div>
+
+    <!-- CONTROLS -->
 
     <button id="start">
         📸 Start Camera
@@ -348,21 +309,28 @@ button:disabled {
 </div>
 
 <div class="status" id="status">
-    Loading Selvi Silks Diwali Frame...
+    Loading Selvi Silks Frame...
 </div>
 
 
 <script>
 
-// =================================
+// ======================================
 // ELEMENTS
-// =================================
+// ======================================
 
-const video = document.getElementById("camera");
-const canvas = document.getElementById("result");
-const ctx = canvas.getContext("2d");
+const video = document.createElement("video");
 
-const framePreview = document.getElementById("framePreview");
+video.autoplay = true;
+video.playsInline = true;
+video.muted = true;
+
+const preview = document.getElementById("previewCanvas");
+const previewCtx = preview.getContext("2d");
+
+const result = document.getElementById("result");
+const resultCtx = result.getContext("2d");
+
 const cameraStage = document.getElementById("cameraStage");
 
 const statusText = document.getElementById("status");
@@ -374,52 +342,266 @@ const downloadBtn = document.getElementById("download");
 const whatsappBtn = document.getElementById("whatsapp");
 const instagramBtn = document.getElementById("instagram");
 
+const W = 1144;
+const H = 1375;
+
 let stream = null;
 let photoReady = false;
+let cameraActive = false;
+let animationId = null;
 
 
-// =================================
-// LOAD FRAME
-// =================================
+// ======================================
+// IMAGE LOADING
+// ======================================
 
 const frame = new Image();
+const mask = new Image();
 
-const framePromise = new Promise((resolve, reject) => {
+function loadImage(image, path) {
 
-    frame.onload = () => {
-        console.log("Selvi Silks Frame Loaded");
-        resolve();
-    };
+    return new Promise((resolve, reject) => {
 
-    frame.onerror = () => {
-        reject(new Error(
-            "Frame not found! Check selvi-frame.png filename."
-        ));
-    };
+        image.onload = resolve;
 
-    frame.src = "./selvi-frame.png";
+        image.onerror = () => reject(
+            new Error("Image not found: " + path)
+        );
 
-});
+        image.src = path;
 
+    });
 
-// =================================
-// FRAME COORDINATES
-// Based on 1706 x 2048 image
-// =================================
+}
 
-const FRAME_W = 1706;
-const FRAME_H = 2048;
+const assetsReady = Promise.all([
 
-// Transparent photo window coordinates
-const PHOTO_X = 285;
-const PHOTO_Y = 770;
-const PHOTO_W = 1136;
-const PHOTO_H = 975;
+    loadImage(
+        frame,
+        "./selvi-grand-diwali-frame-wide.png"
+    ),
+
+    loadImage(
+        mask,
+        "./selvi-window-mask-wide.png"
+    )
+
+]);
 
 
-// =================================
+// ======================================
+// OFFSCREEN SELFIE CANVAS
+// ======================================
+
+const selfieCanvas = document.createElement("canvas");
+
+selfieCanvas.width = W;
+selfieCanvas.height = H;
+
+const selfieCtx = selfieCanvas.getContext("2d");
+
+
+// ======================================
+// BACKGROUND DESIGN
+// ======================================
+
+function drawBackground(ctx) {
+
+    // Purple gradient
+
+    const gradient = ctx.createLinearGradient(
+        0, 0, W, H
+    );
+
+    gradient.addColorStop(0, "#230038");
+    gradient.addColorStop(0.35, "#510078");
+    gradient.addColorStop(0.7, "#36005c");
+    gradient.addColorStop(1, "#19002c");
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, W, H);
+
+    // Golden glow
+
+    const glow = ctx.createRadialGradient(
+        W / 2,
+        H / 2,
+        50,
+        W / 2,
+        H / 2,
+        700
+    );
+
+    glow.addColorStop(
+        0,
+        "rgba(180,100,255,0.18)"
+    );
+
+    glow.addColorStop(
+        1,
+        "rgba(20,0,40,0)"
+    );
+
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    // Subtle golden decorations
+
+    const stars = [
+        [70,180],
+        [1060,180],
+        [70,500],
+        [1070,500],
+        [85,1050],
+        [1050,1050],
+        [250,80],
+        [900,80]
+    ];
+
+    ctx.fillStyle = "rgba(255,207,100,0.7)";
+    ctx.font = "28px Georgia";
+
+    stars.forEach(([x,y]) => {
+        ctx.fillText("✦", x, y);
+    });
+
+}
+
+
+// ======================================
+// DRAW CAMERA ONLY IN CENTRE MASK
+// ======================================
+
+function drawSelfieOnly(ctx) {
+
+    if (!video.videoWidth || !video.videoHeight) {
+        return;
+    }
+
+    selfieCtx.clearRect(0, 0, W, H);
+
+    // Match camera crop to frame ratio
+
+    const targetRatio = W / H;
+
+    const sourceRatio =
+        video.videoWidth / video.videoHeight;
+
+    let sx = 0;
+    let sy = 0;
+    let sw = video.videoWidth;
+    let sh = video.videoHeight;
+
+    if (sourceRatio > targetRatio) {
+
+        sw = video.videoHeight * targetRatio;
+        sx = (video.videoWidth - sw) / 2;
+
+    } else {
+
+        sh = video.videoWidth / targetRatio;
+        sy = (video.videoHeight - sh) / 2;
+
+    }
+
+    // Mirror the selfie
+
+    selfieCtx.save();
+
+    selfieCtx.translate(W, 0);
+    selfieCtx.scale(-1, 1);
+
+    selfieCtx.drawImage(
+        video,
+        sx,
+        sy,
+        sw,
+        sh,
+        0,
+        0,
+        W,
+        H
+    );
+
+    selfieCtx.restore();
+
+    // IMPORTANT:
+    // Keep camera ONLY inside the transparent arch mask.
+
+    selfieCtx.globalCompositeOperation =
+        "destination-in";
+
+    selfieCtx.drawImage(
+        mask,
+        0,
+        0,
+        W,
+        H
+    );
+
+    selfieCtx.globalCompositeOperation =
+        "source-over";
+
+    // Draw masked camera onto background
+
+    ctx.drawImage(
+        selfieCanvas,
+        0,
+        0,
+        W,
+        H
+    );
+
+}
+
+
+// ======================================
+// COMPLETE FRAME COMPOSITION
+// ======================================
+
+function drawComposition(ctx) {
+
+    // 1. Draw background everywhere
+
+    drawBackground(ctx);
+
+    // 2. Draw selfie ONLY inside arch opening
+
+    drawSelfieOnly(ctx);
+
+    // 3. Draw original decorative frame on top
+
+    ctx.drawImage(
+        frame,
+        0,
+        0,
+        W,
+        H
+    );
+
+}
+
+
+// ======================================
+// LIVE PREVIEW
+// ======================================
+
+function renderPreview() {
+
+    if (!cameraActive) return;
+
+    drawComposition(previewCtx);
+
+    animationId = requestAnimationFrame(
+        renderPreview
+    );
+
+}
+
+
+// ======================================
 // BUTTON CONTROL
-// =================================
+// ======================================
 
 function setButtons(enabled) {
 
@@ -431,20 +613,23 @@ function setButtons(enabled) {
 }
 
 
-// =================================
+// ======================================
 // START CAMERA
-// =================================
+// ======================================
 
 async function startCamera() {
 
     try {
 
+        startBtn.disabled = true;
+
         statusText.textContent =
-            "Checking Selvi Silks Frame...";
+            "Loading Selvi Silks Frame...";
 
-        await framePromise;
+        await assetsReady;
 
-        if (!navigator.mediaDevices?.getUserMedia) {
+        if (!navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia) {
 
             throw new Error(
                 "Camera requires HTTPS or localhost."
@@ -453,8 +638,11 @@ async function startCamera() {
         }
 
         if (stream) {
-            stream.getTracks().forEach(track => track.stop());
-            stream = null;
+
+            stream.getTracks().forEach(
+                track => track.stop()
+            );
+
         }
 
         statusText.textContent =
@@ -486,126 +674,22 @@ async function startCamera() {
 
         await video.play();
 
-        video.style.display = "block";
-        framePreview.style.display = "block";
         cameraStage.style.display = "block";
-        canvas.style.display = "none";
+        result.style.display = "none";
+
+        photoReady = false;
+        cameraActive = true;
 
         captureBtn.disabled = false;
 
-        photoReady = false;
         setButtons(false);
 
-        statusText.textContent =
-            "Camera Ready! Selvi Silks Frame Loaded.";
+        cancelAnimationFrame(animationId);
 
-    }
-
-    catch (error) {
-
-        console.error("Camera Error:", error);
-
-        let message = "Camera Error: ";
-
-        if (error.name === "NotAllowedError") {
-            message += "Please allow camera permission in Chrome.";
-        }
-        else if (error.name === "NotFoundError") {
-            message += "No camera detected.";
-        }
-        else if (error.name === "NotReadableError") {
-            message += "Camera is being used by another application.";
-        }
-        else {
-            message += error.message;
-        }
-
-        statusText.textContent = message;
-        captureBtn.disabled = true;
-
-    }
-
-}
-
-
-// =================================
-// DRAW SELFIE INSIDE FRAME
-// =================================
-
-async function capturePhoto() {
-
-    if (!video.videoWidth) {
-        statusText.textContent = "Camera is not ready.";
-        return;
-    }
-
-    captureBtn.disabled = true;
-
-    try {
-
-        await framePromise;
-
-        // Keep exact frame aspect ratio
-        canvas.width = FRAME_W;
-        canvas.height = FRAME_H;
-
-        // Crop camera image to photo window ratio
-        const targetRatio = PHOTO_W / PHOTO_H;
-
-        const sourceRatio =
-            video.videoWidth / video.videoHeight;
-
-        let sx = 0;
-        let sy = 0;
-        let sw = video.videoWidth;
-        let sh = video.videoHeight;
-
-        if (sourceRatio > targetRatio) {
-
-            sw = video.videoHeight * targetRatio;
-            sx = (video.videoWidth - sw) / 2;
-
-        } else {
-
-            sh = video.videoWidth / targetRatio;
-            sy = (video.videoHeight - sh) / 2;
-
-        }
-
-        // Draw selfie in transparent window
-        ctx.save();
-
-        ctx.translate(
-            PHOTO_X + PHOTO_W,
-            PHOTO_Y
-        );
-
-        ctx.scale(-1, 1);
-
-        ctx.drawImage(
-            video,
-            sx, sy, sw, sh,
-            0, 0, PHOTO_W, PHOTO_H
-        );
-
-        ctx.restore();
-
-        // Draw complete original frame over selfie
-        ctx.drawImage(
-            frame,
-            0, 0,
-            FRAME_W, FRAME_H
-        );
-
-        // Show captured photo
-        cameraStage.style.display = "none";
-        canvas.style.display = "block";
-
-        photoReady = true;
-        setButtons(true);
+        renderPreview();
 
         statusText.textContent =
-            "Your Selvi Silks Grand Diwali Selfie is Ready!";
+            "Camera Ready! Your Face Will Appear Inside the Centre.";
 
     }
 
@@ -614,7 +698,72 @@ async function capturePhoto() {
         console.error(error);
 
         statusText.textContent =
-            "Photo Error: " + error.message;
+            "Camera Error: " + error.message;
+
+        captureBtn.disabled = true;
+
+    }
+
+    finally {
+
+        startBtn.disabled = false;
+
+    }
+
+}
+
+
+// ======================================
+// CAPTURE PHOTO
+// ======================================
+
+async function capturePhoto() {
+
+    if (!video.videoWidth) {
+
+        statusText.textContent =
+            "Camera is not ready.";
+
+        return;
+
+    }
+
+    try {
+
+        captureBtn.disabled = true;
+
+        await assetsReady;
+
+        // Draw the exact same composition
+
+        drawComposition(resultCtx);
+
+        // Stop live preview
+
+        cameraActive = false;
+
+        cancelAnimationFrame(animationId);
+
+        // Display final photo
+
+        cameraStage.style.display = "none";
+        result.style.display = "block";
+
+        photoReady = true;
+
+        setButtons(true);
+
+        statusText.textContent =
+            "Grand Diwali Selfie Captured Successfully!";
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        statusText.textContent =
+            "Capture Error: " + error.message;
 
     }
 
@@ -627,28 +776,31 @@ async function capturePhoto() {
 }
 
 
-// =================================
-// CREATE PHOTO FILE
-// =================================
+// ======================================
+// CREATE IMAGE FILE
+// ======================================
 
 function makeFile() {
 
     return new Promise((resolve, reject) => {
 
-        canvas.toBlob(blob => {
+        result.toBlob(blob => {
 
             if (!blob) {
-                reject(new Error("Photo creation failed."));
+
+                reject(
+                    new Error("Photo creation failed.")
+                );
+
                 return;
+
             }
 
-            const file = new File(
+            resolve(new File(
                 [blob],
                 "Selvi-Silks-Grand-Diwali.png",
                 { type: "image/png" }
-            );
-
-            resolve(file);
+            ));
 
         }, "image/png");
 
@@ -657,9 +809,9 @@ function makeFile() {
 }
 
 
-// =================================
+// ======================================
 // DOWNLOAD PHOTO
-// =================================
+// ======================================
 
 function downloadFile(file) {
 
@@ -668,11 +820,14 @@ function downloadFile(file) {
     const link = document.createElement("a");
 
     link.href = url;
-    link.download = "Selvi-Silks-Grand-Diwali.png";
+
+    link.download =
+        "Selvi-Silks-Grand-Diwali.png";
 
     document.body.appendChild(link);
 
     link.click();
+
     link.remove();
 
     setTimeout(() => {
@@ -697,15 +852,17 @@ downloadBtn.addEventListener("click", async () => {
     }
 
     catch (error) {
+
         statusText.textContent = error.message;
+
     }
 
 });
 
 
-// =================================
+// ======================================
 // WHATSAPP AND INSTAGRAM
-// =================================
+// ======================================
 
 async function sharePhoto(app) {
 
@@ -725,9 +882,10 @@ async function sharePhoto(app) {
 
                 files: [file],
 
-                title: "Selvi Silks - Happy Diwali",
+                title: "Selvi Silks Grand Diwali",
 
-                text: "Happy Diwali from Selvi Silks! 🪔✨"
+                text:
+                    "Happy Diwali from Selvi Silks! 🪔✨"
 
             });
 
@@ -738,7 +896,8 @@ async function sharePhoto(app) {
 
         }
 
-        // Fallback for browsers without file sharing
+        // Fallback for unsupported browsers
+
         downloadFile(file);
 
         if (app === "WhatsApp") {
@@ -770,7 +929,7 @@ async function sharePhoto(app) {
         if (error.name !== "AbortError") {
 
             statusText.textContent =
-                "Please download and share your photo manually.";
+                "Please download and share manually.";
 
         }
 
@@ -779,23 +938,27 @@ async function sharePhoto(app) {
 }
 
 
-// =================================
+// ======================================
 // RETAKE PHOTO
-// =================================
+// ======================================
 
 retakeBtn.addEventListener("click", () => {
 
     if (!stream) return;
 
-    cameraStage.style.display = "block";
-    video.style.display = "block";
-    framePreview.style.display = "block";
-
-    canvas.style.display = "none";
-
     photoReady = false;
+    cameraActive = true;
+
+    cameraStage.style.display = "block";
+    result.style.display = "none";
 
     setButtons(false);
+
+    captureBtn.disabled = false;
+
+    cancelAnimationFrame(animationId);
+
+    renderPreview();
 
     statusText.textContent =
         "Camera Ready! Take Another Selfie.";
@@ -803,13 +966,19 @@ retakeBtn.addEventListener("click", () => {
 });
 
 
-// =================================
+// ======================================
 // BUTTON EVENTS
-// =================================
+// ======================================
 
-startBtn.addEventListener("click", startCamera);
+startBtn.addEventListener(
+    "click",
+    startCamera
+);
 
-captureBtn.addEventListener("click", capturePhoto);
+captureBtn.addEventListener(
+    "click",
+    capturePhoto
+);
 
 whatsappBtn.addEventListener(
     "click",
@@ -822,29 +991,34 @@ instagramBtn.addEventListener(
 );
 
 
-// =================================
+// ======================================
 // INITIAL FRAME CHECK
-// =================================
+// ======================================
 
-framePromise.then(() => {
+assetsReady.then(() => {
 
     statusText.textContent =
-        "Selvi Silks Grand Diwali Frame Loaded!";
+        "Frame Loaded! Click Start Camera.";
 
 }).catch(error => {
 
-    statusText.textContent = error.message;
+    statusText.textContent =
+        error.message;
 
     captureBtn.disabled = true;
 
 });
 
 
-// =================================
+// ======================================
 // STOP CAMERA WHEN LEAVING
-// =================================
+// ======================================
 
 window.addEventListener("pagehide", () => {
+
+    cameraActive = false;
+
+    cancelAnimationFrame(animationId);
 
     if (stream) {
 
@@ -860,4 +1034,3 @@ window.addEventListener("pagehide", () => {
 
 </body>
 </html>
-
