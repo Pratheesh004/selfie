@@ -462,7 +462,7 @@ function drawSelfieOnly(ctx) {
 
     // Add only masked camera to background
 
-    ctx.drawImage(
+    ctx.drawImage( INITIAL FRAME PREVIEW
         selfieCanvas,
         0, 0, W, H
     );
@@ -889,19 +889,32 @@ instagramBtn.addEventListener(
 // =====================================
 // 16. INITIAL CHECK
 // =====================================
+// INITIAL FRAME PREVIEW
 
 assetsReady.then(() => {
+
+    // Show background and frame before camera starts
+    drawBackground(pctx);
+
+    pctx.drawImage(
+        frame,
+        0,
+        0,
+        W,
+        H
+    );
 
     statusText.textContent =
         "Frame Loaded! Click Start Camera.";
 
 }).catch(error => {
 
+    console.error(error);
+
     statusText.textContent =
-        error.message;
+        "Frame Loading Error: " + error.message;
 
 });
-
 
 // =====================================
 // 17. STOP CAMERA
