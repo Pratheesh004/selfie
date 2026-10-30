@@ -4,8 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Selvi Silks - Grand Diwali 2.0</title>
+<title>Selvi Silks - Grand Diwali 2.0 Selfie Booth</title>
 
 <style>
 * {
@@ -19,7 +18,6 @@ body {
     background: linear-gradient(135deg,#f8eaff,#ead7ff,#fff0e6);
     font-family: Arial, sans-serif;
     text-align: center;
-    overflow-x: hidden;
 }
 
 h1 {
@@ -34,14 +32,101 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* FIREWORKS */
+.booth {
+    width: min(100%,540px);
+    margin: auto;
+    padding: 12px;
+    background: linear-gradient(145deg,#8500d5,#5700a0,#30005c);
+    border: 7px solid #e7c46d;
+    border-radius: 35px;
+    box-shadow: 0 12px 35px #55008035;
+}
+
+.brand {
+    padding: 14px 5px;
+    color: #fff0c2;
+    font-size: 21px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.camera-stage {
+    width: 100%;
+    aspect-ratio: 1144 / 1375;
+    overflow: hidden;
+    background: #350052;
+}
+
+#previewCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#result {
+    display: none;
+    width: 100%;
+    height: auto;
+}
+
+.wishes {
+    margin: 12px 0;
+    padding: 17px 5px;
+    background: linear-gradient(135deg,#fff,#f1e2ff);
+    color: #6500b5;
+    border: 3px solid #e7c46d;
+    border-radius: 20px;
+    font: bold italic 30px Georgia,serif;
+}
+
+.wishes small {
+    display: block;
+    font: bold 14px Arial;
+    margin-bottom: 5px;
+}
+
+button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px 10px;
+    border: 2px solid #f4d995;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #f0d17e;
+    color: #4c087a;
+}
+
+button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.secondary {
+    background: white;
+    color: #6500b5;
+    border-color: #d9b9ef;
+}
+
+.status {
+    color: #6500a9;
+    font-size: 14px;
+    margin: 15px auto;
+    line-height: 1.5;
+}
+
+.note {
+    color: #71318c;
+    font-size: 12px;
+    margin: 15px auto;
+}
 
 .fireworks {
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 65px;
-    overflow: hidden;
+    width: 60px;
     pointer-events: none;
     z-index: 1;
 }
@@ -56,10 +141,10 @@ h1 {
 }
 
 .spark:nth-child(1) { top: 12%; left: 20%; }
-.spark:nth-child(2) { top: 28%; left: 60%; animation-delay: .5s; }
-.spark:nth-child(3) { top: 45%; left: 15%; animation-delay: 1s; }
-.spark:nth-child(4) { top: 65%; left: 60%; animation-delay: .3s; }
-.spark:nth-child(5) { top: 83%; left: 25%; animation-delay: .8s; }
+.spark:nth-child(2) { top: 30%; left: 60%; animation-delay: .5s; }
+.spark:nth-child(3) { top: 50%; left: 15%; animation-delay: 1s; }
+.spark:nth-child(4) { top: 70%; left: 60%; animation-delay: .3s; }
+.spark:nth-child(5) { top: 85%; left: 25%; animation-delay: .8s; }
 
 @keyframes sparkle {
     0%,100% {
@@ -67,154 +152,22 @@ h1 {
         opacity: .2;
     }
     50% {
-        transform: scale(1.5) rotate(90deg);
+        transform: scale(1.4) rotate(90deg);
         opacity: 1;
     }
 }
 
-/* SELFIE BOOTH */
-
-.booth {
-    width: min(100%, 540px);
-    margin: auto;
-    padding: 12px;
-
-    background: linear-gradient(
-        145deg,
-        #8500d5,
-        #5700a0,
-        #30005c
-    );
-
-    border: 7px solid #e7c46d;
-    border-radius: 40px;
-
-    box-shadow: 0 12px 35px #55008035;
-
-    position: relative;
-    z-index: 2;
-}
-
-.brand {
-    padding: 14px 5px;
-    color: #fff0c2;
-    font-size: 21px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-/* LIVE CANVAS */
-
-.camera-stage {
-    width: 100%;
-    aspect-ratio: 1144 / 1375;
-    position: relative;
-    overflow: hidden;
-    background: #310052;
-}
-
-#previewCanvas {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-/* FINAL PHOTO */
-
-#result {
-    display: none;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1144 / 1375;
-    background: #310052;
-}
-
-/* WISHES */
-
-.wishes {
-    margin: 12px 0;
-    padding: 17px 5px;
-
-    background: linear-gradient(
-        135deg,
-        #fff,
-        #f1e2ff
-    );
-
-    color: #6500b5;
-    border: 3px solid #e7c46d;
-    border-radius: 20px;
-
-    font: bold italic 30px Georgia, serif;
-}
-
-.wishes small {
-    display: block;
-    font: bold 14px Arial;
-    margin-bottom: 5px;
-}
-
-/* BUTTONS */
-
-button {
-    width: 100%;
-    margin-top: 10px;
-    padding: 15px 10px;
-
-    border: 2px solid #f4d995;
-    border-radius: 12px;
-
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-
-    background: #f0d17e;
-    color: #4c087a;
-}
-
-button:disabled {
-    opacity: .4;
-    cursor: not-allowed;
-}
-
-.secondary {
-    background: #fff;
-    color: #6500b5;
-    border-color: #d9b9ef;
-}
-
-.status {
-    color: #6500a9;
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 15px auto;
-    max-width: 500px;
-}
-
-.note {
-    color: #71318c;
-    font-size: 12px;
-    margin: 15px auto;
-    line-height: 1.6;
-}
-
 @media(max-width:600px) {
-    .fireworks { width: 32px; }
-    .spark { font-size: 15px; }
     h1 { font-size: 27px; }
     .brand { font-size: 17px; }
     .wishes { font-size: 26px; }
-}
-
-@media(prefers-reduced-motion:reduce) {
-    .spark { animation: none; }
+    .fireworks { width: 30px; }
+    .spark { font-size: 15px; }
 }
 </style>
 </head>
 
 <body>
-
-<!-- LEFT FIREWORKS -->
 
 <div class="fireworks left">
     <span class="spark">✨</span>
@@ -224,8 +177,6 @@ button:disabled {
     <span class="spark">🌟</span>
 </div>
 
-<!-- RIGHT FIREWORKS -->
-
 <div class="fireworks right">
     <span class="spark">🌟</span>
     <span class="spark">✨</span>
@@ -234,15 +185,11 @@ button:disabled {
     <span class="spark">✨</span>
 </div>
 
-<!-- HEADER -->
-
 <h1>🪔 Selvi Silks 🪔</h1>
 
 <div class="subtitle">
     Capture Your Diwali Memories!
 </div>
-
-<!-- BOOTH -->
 
 <div class="booth">
 
@@ -250,25 +197,17 @@ button:disabled {
         GRAND DIWALI SELFIE BOOTH
     </div>
 
-    <!-- CAMERA COMPOSITE -->
-
     <div class="camera-stage" id="cameraStage">
-        <canvas
-            id="previewCanvas"
-            width="1144"
-            height="1375">
+        <canvas id="previewCanvas"
+                width="1144"
+                height="1375">
         </canvas>
     </div>
 
-    <!-- CAPTURED PHOTO -->
-
-    <canvas
-        id="result"
-        width="1144"
-        height="1375">
+    <canvas id="result"
+            width="1144"
+            height="1375">
     </canvas>
-
-    <!-- WISHES -->
 
     <div class="wishes">
         <small>Wishing You a</small>
@@ -276,11 +215,7 @@ button:disabled {
         <small>✨ Let Your Happiness Shine ✨</small>
     </div>
 
-    <!-- CONTROLS -->
-
-    <button id="start">
-        📸 Start Camera
-    </button>
+    <button id="start">📸 Start Camera</button>
 
     <button id="capture" disabled>
         ✨ Take Selfie
@@ -309,15 +244,17 @@ button:disabled {
 </div>
 
 <div class="status" id="status">
-    Loading Selvi Silks Frame...
+    Loading Diwali Frame...
 </div>
-
 
 <script>
 
-// ======================================
-// ELEMENTS
-// ======================================
+// =====================================
+// 1. ELEMENTS
+// =====================================
+
+const W = 1144;
+const H = 1375;
 
 const video = document.createElement("video");
 
@@ -326,13 +263,12 @@ video.playsInline = true;
 video.muted = true;
 
 const preview = document.getElementById("previewCanvas");
-const previewCtx = preview.getContext("2d");
+const pctx = preview.getContext("2d");
 
 const result = document.getElementById("result");
-const resultCtx = result.getContext("2d");
+const rctx = result.getContext("2d");
 
 const cameraStage = document.getElementById("cameraStage");
-
 const statusText = document.getElementById("status");
 
 const startBtn = document.getElementById("start");
@@ -342,33 +278,30 @@ const downloadBtn = document.getElementById("download");
 const whatsappBtn = document.getElementById("whatsapp");
 const instagramBtn = document.getElementById("instagram");
 
-const W = 1144;
-const H = 1375;
-
 let stream = null;
-let photoReady = false;
-let cameraActive = false;
 let animationId = null;
+let cameraActive = false;
+let photoReady = false;
 
 
-// ======================================
-// IMAGE LOADING
-// ======================================
+// =====================================
+// 2. LOAD ORIGINAL FRAME AND MASK
+// =====================================
 
 const frame = new Image();
 const mask = new Image();
 
-function loadImage(image, path) {
+function loadImage(img, src) {
 
     return new Promise((resolve, reject) => {
 
-        image.onload = resolve;
+        img.onload = resolve;
 
-        image.onerror = () => reject(
-            new Error("Image not found: " + path)
+        img.onerror = () => reject(
+            new Error("Cannot load " + src)
         );
 
-        image.src = path;
+        img.src = src;
 
     });
 
@@ -383,15 +316,15 @@ const assetsReady = Promise.all([
 
     loadImage(
         mask,
-        "./selvi-window-mask-wide.png"
+        "./selvi-window-mask-fixed.png"
     )
 
 ]);
 
 
-// ======================================
-// OFFSCREEN SELFIE CANVAS
-// ======================================
+// =====================================
+// 3. OFFSCREEN CANVAS
+// =====================================
 
 const selfieCanvas = document.createElement("canvas");
 
@@ -401,22 +334,20 @@ selfieCanvas.height = H;
 const selfieCtx = selfieCanvas.getContext("2d");
 
 
-// ======================================
-// BACKGROUND DESIGN
-// ======================================
+// =====================================
+// 4. PURPLE GOLD BACKGROUND
+// =====================================
 
 function drawBackground(ctx) {
-
-    // Purple gradient
 
     const gradient = ctx.createLinearGradient(
         0, 0, W, H
     );
 
-    gradient.addColorStop(0, "#230038");
-    gradient.addColorStop(0.35, "#510078");
-    gradient.addColorStop(0.7, "#36005c");
-    gradient.addColorStop(1, "#19002c");
+    gradient.addColorStop(0, "#240039");
+    gradient.addColorStop(0.4, "#500078");
+    gradient.addColorStop(0.75, "#350052");
+    gradient.addColorStop(1, "#180029");
 
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, W, H);
@@ -424,41 +355,35 @@ function drawBackground(ctx) {
     // Golden glow
 
     const glow = ctx.createRadialGradient(
-        W / 2,
-        H / 2,
-        50,
-        W / 2,
-        H / 2,
-        700
+        570, 650, 50,
+        570, 650, 700
     );
 
     glow.addColorStop(
-        0,
-        "rgba(180,100,255,0.18)"
+        0, "rgba(190,120,255,0.18)"
     );
 
     glow.addColorStop(
-        1,
-        "rgba(20,0,40,0)"
+        1, "rgba(20,0,40,0)"
     );
 
     ctx.fillStyle = glow;
     ctx.fillRect(0, 0, W, H);
 
-    // Subtle golden decorations
+    // Decorative sparkles
 
     const stars = [
-        [70,180],
-        [1060,180],
-        [70,500],
+        [65,150],
+        [1070,150],
+        [65,500],
         [1070,500],
-        [85,1050],
-        [1050,1050],
+        [75,1050],
+        [1060,1050],
         [250,80],
         [900,80]
     ];
 
-    ctx.fillStyle = "rgba(255,207,100,0.7)";
+    ctx.fillStyle = "#f8cf72";
     ctx.font = "28px Georgia";
 
     stars.forEach(([x,y]) => {
@@ -468,9 +393,10 @@ function drawBackground(ctx) {
 }
 
 
-// ======================================
-// DRAW CAMERA ONLY IN CENTRE MASK
-// ======================================
+// =====================================
+// 5. DRAW SELFIE INSIDE MASK
+// IMPORTANT: NO EXTRA X/Y CROP
+// =====================================
 
 function drawSelfieOnly(ctx) {
 
@@ -480,7 +406,7 @@ function drawSelfieOnly(ctx) {
 
     selfieCtx.clearRect(0, 0, W, H);
 
-    // Match camera crop to frame ratio
+    // Crop camera to canvas ratio
 
     const targetRatio = W / H;
 
@@ -504,7 +430,7 @@ function drawSelfieOnly(ctx) {
 
     }
 
-    // Mirror the selfie
+    // Draw full selfie into offscreen canvas
 
     selfieCtx.save();
 
@@ -513,84 +439,72 @@ function drawSelfieOnly(ctx) {
 
     selfieCtx.drawImage(
         video,
-        sx,
-        sy,
-        sw,
-        sh,
-        0,
-        0,
-        W,
-        H
+        sx, sy, sw, sh,
+        0, 0, W, H
     );
 
     selfieCtx.restore();
 
-    // IMPORTANT:
-    // Keep camera ONLY inside the transparent arch mask.
+    // MASK:
+    // White area = camera visible
+    // Transparent area = camera hidden
 
     selfieCtx.globalCompositeOperation =
         "destination-in";
 
     selfieCtx.drawImage(
         mask,
-        0,
-        0,
-        W,
-        H
+        0, 0, W, H
     );
 
     selfieCtx.globalCompositeOperation =
         "source-over";
 
-    // Draw masked camera onto background
+    // Add only masked camera to background
 
     ctx.drawImage(
         selfieCanvas,
-        0,
-        0,
-        W,
-        H
+        0, 0, W, H
     );
 
 }
 
 
-// ======================================
-// COMPLETE FRAME COMPOSITION
-// ======================================
+// =====================================
+// 6. DRAW COMPLETE FRAME ON TOP
+// =====================================
 
 function drawComposition(ctx) {
 
-    // 1. Draw background everywhere
+    // Layer 1: Purple background
 
     drawBackground(ctx);
 
-    // 2. Draw selfie ONLY inside arch opening
+    // Layer 2: Selfie inside centre opening
 
     drawSelfieOnly(ctx);
 
-    // 3. Draw original decorative frame on top
+    // Layer 3: Original frame
+    // Logo, lanterns and Diwali artwork
+    // will always stay in front of camera.
 
     ctx.drawImage(
         frame,
-        0,
-        0,
-        W,
-        H
+        0, 0, W, H
     );
 
 }
 
 
-// ======================================
-// LIVE PREVIEW
-// ======================================
+// =====================================
+// 7. LIVE PREVIEW
+// =====================================
 
 function renderPreview() {
 
     if (!cameraActive) return;
 
-    drawComposition(previewCtx);
+    drawComposition(pctx);
 
     animationId = requestAnimationFrame(
         renderPreview
@@ -599,9 +513,9 @@ function renderPreview() {
 }
 
 
-// ======================================
-// BUTTON CONTROL
-// ======================================
+// =====================================
+// 8. BUTTON CONTROL
+// =====================================
 
 function setButtons(enabled) {
 
@@ -613,9 +527,9 @@ function setButtons(enabled) {
 }
 
 
-// ======================================
-// START CAMERA
-// ======================================
+// =====================================
+// 9. START CAMERA
+// =====================================
 
 async function startCamera() {
 
@@ -624,12 +538,11 @@ async function startCamera() {
         startBtn.disabled = true;
 
         statusText.textContent =
-            "Loading Selvi Silks Frame...";
+            "Loading Frame...";
 
         await assetsReady;
 
-        if (!navigator.mediaDevices ||
-            !navigator.mediaDevices.getUserMedia) {
+        if (!navigator.mediaDevices?.getUserMedia) {
 
             throw new Error(
                 "Camera requires HTTPS or localhost."
@@ -644,9 +557,6 @@ async function startCamera() {
             );
 
         }
-
-        statusText.textContent =
-            "Requesting Camera Permission...";
 
         stream = await navigator.mediaDevices.getUserMedia({
 
@@ -689,7 +599,7 @@ async function startCamera() {
         renderPreview();
 
         statusText.textContent =
-            "Camera Ready! Your Face Will Appear Inside the Centre.";
+            "Camera Ready! Position Your Face in the Centre.";
 
     }
 
@@ -699,8 +609,6 @@ async function startCamera() {
 
         statusText.textContent =
             "Camera Error: " + error.message;
-
-        captureBtn.disabled = true;
 
     }
 
@@ -713,20 +621,13 @@ async function startCamera() {
 }
 
 
-// ======================================
-// CAPTURE PHOTO
-// ======================================
+// =====================================
+// 10. CAPTURE PHOTO
+// =====================================
 
 async function capturePhoto() {
 
-    if (!video.videoWidth) {
-
-        statusText.textContent =
-            "Camera is not ready.";
-
-        return;
-
-    }
+    if (!video.videoWidth) return;
 
     try {
 
@@ -734,17 +635,13 @@ async function capturePhoto() {
 
         await assetsReady;
 
-        // Draw the exact same composition
+        // Use same exact composition
 
-        drawComposition(resultCtx);
-
-        // Stop live preview
+        drawComposition(rctx);
 
         cameraActive = false;
 
         cancelAnimationFrame(animationId);
-
-        // Display final photo
 
         cameraStage.style.display = "none";
         result.style.display = "block";
@@ -754,13 +651,11 @@ async function capturePhoto() {
         setButtons(true);
 
         statusText.textContent =
-            "Grand Diwali Selfie Captured Successfully!";
+            "Selfie Captured Successfully!";
 
     }
 
     catch (error) {
-
-        console.error(error);
 
         statusText.textContent =
             "Capture Error: " + error.message;
@@ -776,9 +671,9 @@ async function capturePhoto() {
 }
 
 
-// ======================================
-// CREATE IMAGE FILE
-// ======================================
+// =====================================
+// 11. CREATE IMAGE FILE
+// =====================================
 
 function makeFile() {
 
@@ -809,9 +704,9 @@ function makeFile() {
 }
 
 
-// ======================================
-// DOWNLOAD PHOTO
-// ======================================
+// =====================================
+// 12. DOWNLOAD PHOTO
+// =====================================
 
 function downloadFile(file) {
 
@@ -860,9 +755,9 @@ downloadBtn.addEventListener("click", async () => {
 });
 
 
-// ======================================
-// WHATSAPP AND INSTAGRAM
-// ======================================
+// =====================================
+// 13. WHATSAPP / INSTAGRAM SHARE
+// =====================================
 
 async function sharePhoto(app) {
 
@@ -890,13 +785,13 @@ async function sharePhoto(app) {
             });
 
             statusText.textContent =
-                "Choose " + app + " from the share menu.";
+                "Select " + app + " from the share menu.";
 
             return;
 
         }
 
-        // Fallback for unsupported browsers
+        // Fallback
 
         downloadFile(file);
 
@@ -938,9 +833,9 @@ async function sharePhoto(app) {
 }
 
 
-// ======================================
-// RETAKE PHOTO
-// ======================================
+// =====================================
+// 14. RETAKE PHOTO
+// =====================================
 
 retakeBtn.addEventListener("click", () => {
 
@@ -966,9 +861,9 @@ retakeBtn.addEventListener("click", () => {
 });
 
 
-// ======================================
-// BUTTON EVENTS
-// ======================================
+// =====================================
+// 15. BUTTON EVENTS
+// =====================================
 
 startBtn.addEventListener(
     "click",
@@ -991,9 +886,9 @@ instagramBtn.addEventListener(
 );
 
 
-// ======================================
-// INITIAL FRAME CHECK
-// ======================================
+// =====================================
+// 16. INITIAL CHECK
+// =====================================
 
 assetsReady.then(() => {
 
@@ -1005,14 +900,12 @@ assetsReady.then(() => {
     statusText.textContent =
         error.message;
 
-    captureBtn.disabled = true;
-
 });
 
 
-// ======================================
-// STOP CAMERA WHEN LEAVING
-// ======================================
+// =====================================
+// 17. STOP CAMERA
+// =====================================
 
 window.addEventListener("pagehide", () => {
 
