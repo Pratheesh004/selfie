@@ -21,53 +21,59 @@ body {
 }
 
 h1 {
-    color: #7410c9;
-    font-size: 32px;
-    margin: 10px;
+    color: #7900c9;
+    font-size: 34px;
+    margin: 10px 0;
 }
 
 .subtitle {
     color: #744322;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    font-size: 18px;
 }
 
 .booth {
-    width: min(100%, 430px);
+    width: min(100%, 540px);
     margin: auto;
     padding: 12px;
     background: linear-gradient(145deg, #680021, #b00d45, #62001e);
-    border: 5px solid #edc05b;
-    border-radius: 48px 48px 20px 20px;
+    border: 6px solid #edc05b;
+    border-radius: 60px 60px 20px 20px;
     box-shadow: 0 10px 25px #6d301b40;
 }
 
 .brand {
-    padding: 12px;
+    padding: 16px 5px;
     color: #ffe6a0;
-    font-size: 22px;
+    font-size: 27px;
     font-weight: bold;
     letter-spacing: 2px;
 }
 
-video, canvas {
+#camera,
+#result {
     display: block;
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     background: #fff6e7;
-    border: 5px solid #e9bf64;
-    border-radius: 28px 28px 8px 8px;
+    border: 6px solid #e9bf64;
+    border-radius: 35px 35px 10px 10px;
 }
 
-canvas {
+#camera {
+    transform: scaleX(-1);
+}
+
+#result {
     display: none;
 }
 
 .wishes {
-    margin: 12px 0 5px;
-    padding: 15px 3px;
+    margin: 15px 0 5px;
+    padding: 15px 5px;
     border: 3px solid #edc05b;
-    border-radius: 25px;
+    border-radius: 30px;
     color: #790329;
     background: #ffdf91;
     font: italic bold 35px Georgia, serif;
@@ -76,13 +82,14 @@ canvas {
 .wishes small {
     display: block;
     font: bold 15px Arial, sans-serif;
+    margin-bottom: 5px;
 }
 
 button {
     width: 100%;
-    margin-top: 10px;
-    padding: 14px 10px;
-    border: 0;
+    margin-top: 11px;
+    padding: 15px 10px;
+    border: none;
     border-radius: 12px;
     font-size: 16px;
     font-weight: bold;
@@ -92,7 +99,7 @@ button {
 }
 
 button:disabled {
-    opacity: 0.45;
+    opacity: 0.4;
     cursor: not-allowed;
 }
 
@@ -105,15 +112,23 @@ button:disabled {
     color: #6c1730;
     font-size: 14px;
     margin: 15px auto;
-    max-width: 430px;
+    max-width: 500px;
+    line-height: 1.5;
 }
 
 .note {
-    max-width: 430px;
+    max-width: 500px;
     margin: 15px auto;
     color: #68452c;
     font-size: 12px;
     line-height: 1.6;
+}
+
+.logo-preview {
+    max-width: 190px;
+    max-height: 65px;
+    object-fit: contain;
+    margin: 0 auto 5px;
 }
 </style>
 </head>
@@ -169,28 +184,20 @@ button:disabled {
 </div>
 
 <div class="note">
-    Take a selfie with Selvi Silks branding.
+    Take your selfie with the original Selvi Silks logo.
     Download and share your Diwali memories!
 </div>
 
 <div class="status" id="status">
-    Click Start Camera to begin.
+    Loading Selvi Silks Logo...
 </div>
 
 
 <script>
 
-// ---------------------------------
-// SELVI SILKS ORIGINAL LOGO
-// ---------------------------------
-
-const logo = new Image();
-logo.src = "selvi-logo.png";
-
-
-// ---------------------------------
+// ======================================
 // ELEMENTS
-// ---------------------------------
+// ======================================
 
 const video = document.getElementById("camera");
 const canvas = document.getElementById("result");
@@ -207,11 +214,39 @@ const instagramBtn = document.getElementById("instagram");
 
 let stream = null;
 let photoReady = false;
+let logoReady = false;
 
 
-// ---------------------------------
+// ======================================
+// LOAD ORIGINAL SELVI SILKS LOGO
+// ======================================
+
+const logo = new Image();
+
+const logoPromise = new Promise((resolve, reject) => {
+
+    logo.onload = () => {
+        logoReady = true;
+        console.log("Selvi Silks Logo Loaded Successfully");
+        resolve(true);
+    };
+
+    logo.onerror = () => {
+        logoReady = false;
+        reject(new Error(
+            "Logo not found. Check selvi-logo.png in GitHub."
+        ));
+    };
+
+    // Exact logo filename
+    logo.src = "./selvi-logo.png";
+
+});
+
+
+// ======================================
 // BUTTON CONTROL
-// ---------------------------------
+// ======================================
 
 function setButtons(enabled) {
 
@@ -223,20 +258,29 @@ function setButtons(enabled) {
 }
 
 
-// ---------------------------------
+// ======================================
 // START CAMERA
-// ---------------------------------
+// ======================================
 
 async function startCamera() {
 
     try {
 
+        statusText.textContent = "Checking Selvi Silks Logo...";
+
+        // Logo must load before camera starts
+        await logoPromise;
+
         if (!navigator.mediaDevices?.getUserMedia) {
-            throw new Error("Use HTTPS or localhost for camera access.");
+            throw new Error(
+                "Camera requires HTTPS or localhost."
+            );
         }
 
         if (stream) {
-            stream.getTracks().forEach(track => track.stop());
+            stream.getTracks().forEach(
+                track => track.stop()
+            );
         }
 
         stream = await navigator.mediaDevices.getUserMedia({
@@ -264,210 +308,235 @@ async function startCamera() {
         setButtons(false);
 
         statusText.textContent =
-            "Camera Ready! Smile and Take Your Selfie.";
+            "Logo Ready! Camera Ready! Take Your Selfie.";
 
     }
 
     catch (error) {
 
         statusText.textContent =
-            "Camera Error: " + error.message;
+            "Error: " + error.message;
+
+        captureBtn.disabled = true;
 
     }
 
 }
 
 
-// ---------------------------------
+// ======================================
 // CAPTURE SELFIE
-// ---------------------------------
+// ======================================
 
-function capturePhoto() {
+async function capturePhoto() {
 
-    if (!video.videoWidth) return;
-
-    const W = 1080;
-    const H = 1350;
-
-    canvas.width = W;
-    canvas.height = H;
-
-    // Crop camera image to 4:5 ratio
-
-    const sourceRatio =
-        video.videoWidth / video.videoHeight;
-
-    const targetRatio = W / H;
-
-    let sx = 0;
-    let sy = 0;
-    let sw = video.videoWidth;
-    let sh = video.videoHeight;
-
-    if (sourceRatio > targetRatio) {
-
-        sw = video.videoHeight * targetRatio;
-        sx = (video.videoWidth - sw) / 2;
-
-    } else {
-
-        sh = video.videoWidth / targetRatio;
-        sy = (video.videoHeight - sh) / 2;
-
+    if (!video.videoWidth) {
+        statusText.textContent = "Camera is not ready.";
+        return;
     }
 
-    // Mirror selfie image
+    if (!logoReady) {
+        statusText.textContent = "Selvi Silks Logo is not ready.";
+        return;
+    }
 
-    ctx.save();
+    captureBtn.disabled = true;
 
-    ctx.translate(W, 0);
-    ctx.scale(-1, 1);
+    try {
 
-    ctx.drawImage(
-        video,
-        sx, sy, sw, sh,
-        0, 0, W, H
-    );
+        // Ensure logo is completely decoded
+        await logo.decode();
 
-    ctx.restore();
+        const W = 1080;
+        const H = 1350;
+
+        canvas.width = W;
+        canvas.height = H;
+
+        // =================================
+        // CAMERA IMAGE
+        // =================================
+
+        const sourceRatio =
+            video.videoWidth / video.videoHeight;
+
+        const targetRatio = W / H;
+
+        let sx = 0;
+        let sy = 0;
+        let sw = video.videoWidth;
+        let sh = video.videoHeight;
+
+        if (sourceRatio > targetRatio) {
+
+            sw = video.videoHeight * targetRatio;
+            sx = (video.videoWidth - sw) / 2;
+
+        } else {
+
+            sh = video.videoWidth / targetRatio;
+            sy = (video.videoHeight - sh) / 2;
+
+        }
+
+        // Mirrored selfie
+        ctx.save();
+
+        ctx.translate(W, 0);
+        ctx.scale(-1, 1);
+
+        ctx.drawImage(
+            video,
+            sx, sy, sw, sh,
+            0, 0, W, H
+        );
+
+        ctx.restore();
 
 
-    // ---------------------------------
-    // DRAW SELVI SILKS LOGO
-    // ---------------------------------
-
-    if (logo.complete && logo.naturalWidth > 0) {
+        // =================================
+        // ORIGINAL SELVI SILKS LOGO
+        // =================================
 
         const logoWidth = 760;
 
         const logoHeight =
-            logoWidth * logo.naturalHeight / logo.naturalWidth;
+            logoWidth *
+            (logo.naturalHeight / logo.naturalWidth);
 
+        // Draw logo centered at top
         ctx.drawImage(
             logo,
             (W - logoWidth) / 2,
-            38,
+            35,
             logoWidth,
             logoHeight
         );
 
-    } else {
 
-        console.warn("Selvi Silks logo not loaded.");
+        // =================================
+        // GOLD BORDER
+        // =================================
+
+        ctx.lineWidth = 18;
+        ctx.strokeStyle = "#efc45e";
+
+        ctx.strokeRect(
+            10, 10,
+            W - 20,
+            H - 20
+        );
+
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "#fff0bd";
+
+        ctx.strokeRect(
+            32, 32,
+            W - 64,
+            H - 64
+        );
+
+
+        // =================================
+        // DIWALI GREETING PANEL
+        // =================================
+
+        const bottom = ctx.createLinearGradient(
+            0, 1030, 0, H
+        );
+
+        bottom.addColorStop(
+            0, "rgba(91,0,30,0.85)"
+        );
+
+        bottom.addColorStop(
+            1, "rgba(75,0,24,0.98)"
+        );
+
+        ctx.fillStyle = bottom;
+
+        ctx.fillRect(
+            20, 1030,
+            W - 40,
+            300
+        );
+
+
+        // Gold border
+        ctx.strokeStyle = "#edc05b";
+        ctx.lineWidth = 6;
+
+        ctx.strokeRect(
+            42, 1050,
+            W - 84,
+            258
+        );
+
+
+        // Greeting text
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#ffe6a0";
+
+        ctx.font = "bold 38px Georgia";
+
+        ctx.fillText(
+            "Wishing You a",
+            W / 2,
+            1110
+        );
+
+        ctx.font = "bold italic 78px Georgia";
+
+        ctx.fillText(
+            "Happy Diwali!",
+            W / 2,
+            1205
+        );
+
+        ctx.font = "28px Arial";
+
+        ctx.fillText(
+            "Let Your Happiness Shine!",
+            W / 2,
+            1260
+        );
+
+
+        // =================================
+        // SHOW FINAL PHOTO
+        // =================================
+
+        video.style.display = "none";
+        canvas.style.display = "block";
+
+        photoReady = true;
+
+        setButtons(true);
+
+        statusText.textContent =
+            "Success! Selvi Silks Logo Added to Your Selfie!";
 
     }
 
+    catch (error) {
 
-    // ---------------------------------
-    // GOLD BORDER
-    // ---------------------------------
+        statusText.textContent =
+            "Photo Error: " + error.message;
 
-    ctx.lineWidth = 18;
-    ctx.strokeStyle = "#efc45e";
+    }
 
-    ctx.strokeRect(
-        10, 10,
-        W - 20,
-        H - 20
-    );
+    finally {
 
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = "#fff0bd";
+        captureBtn.disabled = false;
 
-    ctx.strokeRect(
-        32, 32,
-        W - 64,
-        H - 64
-    );
-
-
-    // ---------------------------------
-    // DIWALI GREETING PANEL
-    // ---------------------------------
-
-    const bottom = ctx.createLinearGradient(
-        0, 1030, 0, H
-    );
-
-    bottom.addColorStop(
-        0,
-        "rgba(91,0,30,0.72)"
-    );
-
-    bottom.addColorStop(
-        1,
-        "rgba(75,0,24,0.98)"
-    );
-
-    ctx.fillStyle = bottom;
-
-    ctx.fillRect(
-        20, 1030,
-        W - 40,
-        300
-    );
-
-
-    // Gold panel border
-
-    ctx.strokeStyle = "#edc05b";
-    ctx.lineWidth = 6;
-
-    ctx.strokeRect(
-        42, 1050,
-        W - 84,
-        258
-    );
-
-
-    // Greeting text
-
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#ffe6a0";
-
-    ctx.font = "bold 38px Georgia";
-
-    ctx.fillText(
-        "Wishing You a",
-        W / 2,
-        1110
-    );
-
-    ctx.font = "bold italic 78px Georgia";
-
-    ctx.fillText(
-        "Happy Diwali!",
-        W / 2,
-        1205
-    );
-
-    ctx.font = "28px Arial";
-
-    ctx.fillText(
-        "Let Your Happiness Shine!",
-        W / 2,
-        1260
-    );
-
-
-    // Show captured photo
-
-    video.style.display = "none";
-    canvas.style.display = "block";
-
-    photoReady = true;
-
-    setButtons(true);
-
-    statusText.textContent =
-        "Your Selvi Silks Diwali Selfie is Ready!";
+    }
 
 }
 
 
-// ---------------------------------
+// ======================================
 // CREATE IMAGE FILE
-// ---------------------------------
+// ======================================
 
 function makeFile() {
 
@@ -476,13 +545,8 @@ function makeFile() {
         canvas.toBlob(blob => {
 
             if (!blob) {
-
-                reject(
-                    new Error("Photo creation failed.")
-                );
-
+                reject(new Error("Photo creation failed."));
                 return;
-
             }
 
             const file = new File(
@@ -500,9 +564,9 @@ function makeFile() {
 }
 
 
-// ---------------------------------
+// ======================================
 // DOWNLOAD PHOTO
-// ---------------------------------
+// ======================================
 
 function downloadFile(file) {
 
@@ -531,6 +595,8 @@ downloadBtn.addEventListener("click", async () => {
 
     try {
 
+        if (!photoReady) return;
+
         const file = await makeFile();
 
         downloadFile(file);
@@ -549,9 +615,9 @@ downloadBtn.addEventListener("click", async () => {
 });
 
 
-// ---------------------------------
-// WHATSAPP & INSTAGRAM SHARING
-// ---------------------------------
+// ======================================
+// WHATSAPP & INSTAGRAM SHARE
+// ======================================
 
 async function sharePhoto(app) {
 
@@ -561,8 +627,7 @@ async function sharePhoto(app) {
 
         const file = await makeFile();
 
-        // Native mobile share with image
-
+        // Share actual photo using mobile share sheet
         if (
             navigator.share &&
             navigator.canShare &&
@@ -575,8 +640,7 @@ async function sharePhoto(app) {
 
                 title: "Selvi Silks - Happy Diwali",
 
-                text:
-                    "Happy Diwali from Selvi Silks! 🪔✨"
+                text: "Happy Diwali from Selvi Silks! 🪔✨"
 
             });
 
@@ -587,9 +651,7 @@ async function sharePhoto(app) {
 
         }
 
-
-        // Fallback for unsupported browsers
-
+        // Fallback for browsers without image sharing
         downloadFile(file);
 
         if (app === "WhatsApp") {
@@ -602,9 +664,7 @@ async function sharePhoto(app) {
                 "_blank"
             );
 
-        }
-
-        else {
+        } else {
 
             window.open(
                 "https://www.instagram.com/",
@@ -623,7 +683,7 @@ async function sharePhoto(app) {
         if (error.name !== "AbortError") {
 
             statusText.textContent =
-                "Sharing unavailable. Please download and share manually.";
+                "Sharing unavailable. Download your photo and share manually.";
 
         }
 
@@ -632,38 +692,30 @@ async function sharePhoto(app) {
 }
 
 
-// ---------------------------------
+// ======================================
 // RETAKE PHOTO
-// ---------------------------------
+// ======================================
 
 retakeBtn.addEventListener("click", () => {
 
-    if (stream) {
+    if (!stream) return;
 
-        video.style.display = "block";
-        canvas.style.display = "none";
+    video.style.display = "block";
+    canvas.style.display = "none";
 
-        photoReady = false;
+    photoReady = false;
 
-        setButtons(false);
+    setButtons(false);
 
-        statusText.textContent =
-            "Camera Ready! Take Another Selfie.";
-
-    }
-
-    else {
-
-        startCamera();
-
-    }
+    statusText.textContent =
+        "Camera Ready! Take Another Selfie.";
 
 });
 
 
-// ---------------------------------
+// ======================================
 // BUTTON EVENTS
-// ---------------------------------
+// ======================================
 
 startBtn.addEventListener(
     "click",
@@ -686,9 +738,28 @@ instagramBtn.addEventListener(
 );
 
 
-// ---------------------------------
+// ======================================
+// INITIAL LOGO CHECK
+// ======================================
+
+logoPromise.then(() => {
+
+    statusText.textContent =
+        "Selvi Silks Logo Loaded! Click Start Camera.";
+
+}).catch(error => {
+
+    statusText.textContent =
+        error.message;
+
+    captureBtn.disabled = true;
+
+});
+
+
+// ======================================
 // STOP CAMERA WHEN LEAVING
-// ---------------------------------
+// ======================================
 
 window.addEventListener("pagehide", () => {
 
@@ -706,6 +777,7 @@ window.addEventListener("pagehide", () => {
 
 </body>
 </html>
+
 
 
 
